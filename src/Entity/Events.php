@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,17 @@ class Events
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $numberOfDps = null;
+
+    #[ORM\ManyToMany(targetEntity: Characters::class, mappedBy: 'events')]
+    private Collection $characters;
+
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    private ?Guilds $guilds = null;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +118,45 @@ class Events
     public function setNumberOfDps(?int $numberOfDps): self
     {
         $this->numberOfDps = $numberOfDps;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Characters>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Characters $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Characters $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            $character->removeEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function getGuilds(): ?Guilds
+    {
+        return $this->guilds;
+    }
+
+    public function setGuilds(?Guilds $guilds): self
+    {
+        $this->guilds = $guilds;
 
         return $this;
     }

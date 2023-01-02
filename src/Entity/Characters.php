@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharactersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +16,7 @@ class Characters
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true, unique: true)]
     private ?string $nameCharacter = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
@@ -37,6 +39,20 @@ class Characters
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $roleGuild = null;
+
+    #[ORM\ManyToMany(targetEntity: events::class, inversedBy: 'characters')]
+    private Collection $events;
+
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    private ?user $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    private ?guilds $guilds = null;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +151,54 @@ class Characters
     public function setRoleGuild(?string $roleGuild): self
     {
         $this->roleGuild = $roleGuild;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, events>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(events $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(events $event): self
+    {
+        $this->events->removeElement($event);
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGuilds(): ?guilds
+    {
+        return $this->guilds;
+    }
+
+    public function setGuilds(?guilds $guilds): self
+    {
+        $this->guilds = $guilds;
 
         return $this;
     }
