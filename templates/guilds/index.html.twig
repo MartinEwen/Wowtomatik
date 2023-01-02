@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guilds index{% endblock %}
+
+{% block body %}
+    <h1>Guilds index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NameGuild</th>
+                <th>NumberOfMember</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guild in guilds %}
+            <tr>
+                <td>{{ guild.id }}</td>
+                <td>{{ guild.nameGuild }}</td>
+                <td>{{ guild.numberOfMember }}</td>
+                <td>
+                    <a href="{{ path('app_guilds_show', {'id': guild.id}) }}">show</a>
+                    <a href="{{ path('app_guilds_edit', {'id': guild.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_guilds_new') }}">Create new</a>
+{% endblock %}

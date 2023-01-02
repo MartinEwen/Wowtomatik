@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Characters{% endblock %}
+
+{% block body %}
+    <h1>Characters</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ character.id }}</td>
+            </tr>
+            <tr>
+                <th>NameCharacter</th>
+                <td>{{ character.nameCharacter }}</td>
+            </tr>
+            <tr>
+                <th>LvlCharacter</th>
+                <td>{{ character.lvlCharacter }}</td>
+            </tr>
+            <tr>
+                <th>ClassCharacter</th>
+                <td>{{ character.classCharacter }}</td>
+            </tr>
+            <tr>
+                <th>SpeCharacter1</th>
+                <td>{{ character.speCharacter1 }}</td>
+            </tr>
+            <tr>
+                <th>GearScoreSpe1</th>
+                <td>{{ character.gearScoreSpe1 }}</td>
+            </tr>
+            <tr>
+                <th>SpeCharacter2</th>
+                <td>{{ character.speCharacter2 }}</td>
+            </tr>
+            <tr>
+                <th>GearScoreSpe2</th>
+                <td>{{ character.gearScoreSpe2 }}</td>
+            </tr>
+            <tr>
+                <th>RoleGuild</th>
+                <td>{{ character.roleGuild }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_characters_index') }}">back to list</a>
+
+    <a href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
+
+    {{ include('characters/_delete_form.html.twig') }}
+{% endblock %}

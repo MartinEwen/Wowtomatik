@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guilds{% endblock %}
+
+{% block body %}
+    <h1>Guilds</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ guild.id }}</td>
+            </tr>
+            <tr>
+                <th>NameGuild</th>
+                <td>{{ guild.nameGuild }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfMember</th>
+                <td>{{ guild.numberOfMember }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_guilds_index') }}">back to list</a>
+
+    <a href="{{ path('app_guilds_edit', {'id': guild.id}) }}">edit</a>
+
+    {{ include('guilds/_delete_form.html.twig') }}
+{% endblock %}

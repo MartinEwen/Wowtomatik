@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boss{% endblock %}
+
+{% block body %}
+    <h1>Boss</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ boss.id }}</td>
+            </tr>
+            <tr>
+                <th>NameBoss</th>
+                <td>{{ boss.nameBoss }}</td>
+            </tr>
+            <tr>
+                <th>ImgBoss</th>
+                <td>{{ boss.imgBoss }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_boss_index') }}">back to list</a>
+
+    <a href="{{ path('app_boss_edit', {'id': boss.id}) }}">edit</a>
+
+    {{ include('boss/_delete_form.html.twig') }}
+{% endblock %}

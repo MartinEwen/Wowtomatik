@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instances{% endblock %}
+
+{% block body %}
+    <h1>Instances</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ instance.id }}</td>
+            </tr>
+            <tr>
+                <th>NameInstance</th>
+                <td>{{ instance.nameInstance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_instances_index') }}">back to list</a>
+
+    <a href="{{ path('app_instances_edit', {'id': instance.id}) }}">edit</a>
+
+    {{ include('instances/_delete_form.html.twig') }}
+{% endblock %}
