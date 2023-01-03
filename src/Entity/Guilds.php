@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\GuildsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Characters;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GuildsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: GuildsRepository::class)]
 class Guilds
@@ -24,9 +25,6 @@ class Guilds
     #[ORM\OneToMany(mappedBy: 'guilds', targetEntity: Characters::class)]
     private Collection $characters;
 
-    #[ORM\OneToMany(mappedBy: 'guilds', targetEntity: events::class)]
-    private Collection $events;
-
     #[ORM\ManyToMany(targetEntity: instances::class, inversedBy: 'guilds')]
     private Collection $instances;
 
@@ -36,7 +34,6 @@ class Guilds
     public function __construct()
     {
         $this->characters = new ArrayCollection();
-        $this->events = new ArrayCollection();
         $this->instances = new ArrayCollection();
         $this->boss = new ArrayCollection();
     }
@@ -100,35 +97,7 @@ class Guilds
         return $this;
     }
 
-    /**
-     * @return Collection<int, events>
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
 
-    public function addEvent(events $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->setGuilds($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(events $event): self
-    {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getGuilds() === $this) {
-                $event->setGuilds(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, instances>

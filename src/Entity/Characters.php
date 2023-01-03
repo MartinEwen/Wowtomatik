@@ -40,19 +40,11 @@ class Characters
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $roleGuild = null;
 
-    #[ORM\ManyToMany(targetEntity: events::class, inversedBy: 'characters')]
-    private Collection $events;
-
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?user $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?guilds $guilds = null;
-
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -155,29 +147,6 @@ class Characters
         return $this;
     }
 
-    /**
-     * @return Collection<int, events>
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(events $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(events $event): self
-    {
-        $this->events->removeElement($event);
-
-        return $this;
-    }
 
     public function getUser(): ?user
     {

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\InstancesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Guilds;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InstancesRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: InstancesRepository::class)]
 class Instances
