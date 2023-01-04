@@ -19,7 +19,7 @@ class BossFixtures extends Fixture implements DependentFixtureInterface
     }
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $boss = new Boss();
             $faker = Factory::create('fr-FR');
             $boss->setNameBoss($faker->unique()->name(2, true))

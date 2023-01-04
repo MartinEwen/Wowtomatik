@@ -41,10 +41,10 @@ class Characters
     private ?string $roleGuild = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    private ?guilds $guilds = null;
+    private ?Guilds $guilds = null;
 
     public function getId(): ?int
     {
@@ -148,24 +148,24 @@ class Characters
     }
 
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getGuilds(): ?guilds
+    public function getGuilds(): ?Guilds
     {
         return $this->guilds;
     }
 
-    public function setGuilds(?guilds $guilds): self
+    public function setGuilds(?Guilds $guilds): self
     {
         $this->guilds = $guilds;
 

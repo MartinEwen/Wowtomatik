@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>NameBoss</th>
                 <th>ImgBoss</th>
+                <th>Instance</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ boss.id }}</td>
                 <td>{{ boss.nameBoss }}</td>
                 <td>{{ boss.imgBoss }}</td>
+                <td> {{ boss.instance.nameInstance }} </td>
                 <td>
                     <a href="{{ path('app_boss_show', {'id': boss.id}) }}">show</a>
                     <a href="{{ path('app_boss_edit', {'id': boss.id}) }}">edit</a>

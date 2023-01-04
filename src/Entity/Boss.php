@@ -26,13 +26,12 @@ class Boss
     #[ORM\ManyToMany(targetEntity: Guilds::class, mappedBy: 'boss')]
     private Collection $guilds;
 
-    #[ORM\ManyToMany(targetEntity: Instances::class, mappedBy: 'boss')]
-    private Collection $instances;
+    #[ORM\ManyToOne(inversedBy: 'bosses')]
+    private ?Instances $instance = null;
 
     public function __construct()
     {
         $this->guilds = new ArrayCollection();
-        $this->instances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,29 +90,14 @@ class Boss
         return $this;
     }
 
-    /**
-     * @return Collection<int, Instances>
-     */
-    public function getInstances(): Collection
+    public function getInstance(): ?Instances
     {
-        return $this->instances;
+        return $this->instance;
     }
 
-    public function addInstance(Instances $instance): self
+    public function setInstance(?Instances $instance): self
     {
-        if (!$this->instances->contains($instance)) {
-            $this->instances->add($instance);
-            $instance->addBoss($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstance(Instances $instance): self
-    {
-        if ($this->instances->removeElement($instance)) {
-            $instance->removeBoss($this);
-        }
+        $this->instance = $instance;
 
         return $this;
     }
