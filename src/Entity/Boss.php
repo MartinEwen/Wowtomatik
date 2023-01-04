@@ -2,12 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Guilds;
 use App\Entity\Instances;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BossRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: BossRepository::class)]
 class Boss
@@ -23,16 +20,9 @@ class Boss
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imgBoss = null;
 
-    #[ORM\ManyToMany(targetEntity: Guilds::class, mappedBy: 'boss')]
-    private Collection $guilds;
-
     #[ORM\ManyToOne(inversedBy: 'bosses')]
     private ?Instances $instance = null;
 
-    public function __construct()
-    {
-        $this->guilds = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -59,33 +49,6 @@ class Boss
     public function setImgBoss(?string $imgBoss): self
     {
         $this->imgBoss = $imgBoss;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Guilds>
-     */
-    public function getGuilds(): Collection
-    {
-        return $this->guilds;
-    }
-
-    public function addGuild(Guilds $guild): self
-    {
-        if (!$this->guilds->contains($guild)) {
-            $this->guilds->add($guild);
-            $guild->addBoss($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGuild(Guilds $guild): self
-    {
-        if ($this->guilds->removeElement($guild)) {
-            $guild->removeBoss($this);
-        }
 
         return $this;
     }

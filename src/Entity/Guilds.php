@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Boss;
-use App\Entity\Instances;
 use App\Entity\Characters;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GuildsRepository;
@@ -27,17 +25,10 @@ class Guilds
     #[ORM\OneToMany(mappedBy: 'guilds', targetEntity: Characters::class)]
     private Collection $characters;
 
-    #[ORM\ManyToMany(targetEntity: Instances::class, inversedBy: 'guilds')]
-    private Collection $instances;
-
-    #[ORM\ManyToMany(targetEntity: Boss::class, inversedBy: 'guilds')]
-    private Collection $boss;
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
-        $this->instances = new ArrayCollection();
-        $this->boss = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,56 +86,6 @@ class Guilds
                 $character->setGuilds(null);
             }
         }
-
-        return $this;
-    }
-
-
-
-    /**
-     * @return Collection<int, instances>
-     */
-    public function getInstances(): Collection
-    {
-        return $this->instances;
-    }
-
-    public function addInstance(Instances $instance): self
-    {
-        if (!$this->instances->contains($instance)) {
-            $this->instances->add($instance);
-        }
-
-        return $this;
-    }
-
-    public function removeInstance(Instances $instance): self
-    {
-        $this->instances->removeElement($instance);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, boss>
-     */
-    public function getBoss(): Collection
-    {
-        return $this->boss;
-    }
-
-    public function addBoss(Boss $boss): self
-    {
-        if (!$this->boss->contains($boss)) {
-            $this->boss->add($boss);
-        }
-
-        return $this;
-    }
-
-    public function removeBoss(Boss $boss): self
-    {
-        $this->boss->removeElement($boss);
 
         return $this;
     }

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Guilds;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InstancesRepository;
 use Doctrine\Common\Collections\Collection;
@@ -19,15 +18,11 @@ class Instances
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nameInstance = null;
 
-    #[ORM\ManyToMany(targetEntity: Guilds::class, mappedBy: 'instances')]
-    private Collection $guilds;
-
     #[ORM\OneToMany(mappedBy: 'instance', targetEntity: Boss::class)]
     private Collection $bosses;
 
     public function __construct()
     {
-        $this->guilds = new ArrayCollection();
         $this->bosses = new ArrayCollection();
     }
 
@@ -44,33 +39,6 @@ class Instances
     public function setNameInstance(?string $nameInstance): self
     {
         $this->nameInstance = $nameInstance;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Guilds>
-     */
-    public function getGuilds(): Collection
-    {
-        return $this->guilds;
-    }
-
-    public function addGuild(Guilds $guild): self
-    {
-        if (!$this->guilds->contains($guild)) {
-            $this->guilds->add($guild);
-            $guild->addInstance($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGuild(Guilds $guild): self
-    {
-        if ($this->guilds->removeElement($guild)) {
-            $guild->removeInstance($this);
-        }
 
         return $this;
     }
