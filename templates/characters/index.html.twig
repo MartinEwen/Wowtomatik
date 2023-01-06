@@ -17,6 +17,7 @@
                 <th>SpeCharacter2</th>
                 <th>GearScoreSpe2</th>
                 <th>RoleGuild</th>
+                <th>userId</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <td>{{ character.speCharacter2 }}</td>
                 <td>{{ character.gearScoreSpe2 }}</td>
                 <td>{{ character.roleGuild }}</td>
+                <td> {{ character.user.pseudo }} </td>
                 <td>
                     <a href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
                     <a href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>

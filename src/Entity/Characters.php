@@ -9,12 +9,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CharactersRepository::class)]
 class Characters
 {
+    public const ROLE_NONE = 'ROLE_NONE';
+    public const ROLE_MEMBER = 'ROLE_MEMBER';
+    public const ROLE_OFFICER = 'ROLE_OFFICER';
+    public const ROLE_GUILDMASTER = 'ROLE_GUILDMASTER';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true, unique: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $nameCharacter = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
@@ -43,6 +48,11 @@ class Characters
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?Guilds $guilds = null;
+
+    public function __construct()
+    {
+        $this->roleGuild = 'ROLE_NONE';
+    }
 
     public function getId(): ?int
     {

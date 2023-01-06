@@ -24,9 +24,9 @@ class CharactersFixtures extends Fixture implements DependentFixtureInterface
         $spePriest = array("Holy", "discipline", "shadow");
         $speHunt = array("beastMaster", "Precision", "survie");
         $speDK = array("sang tank", "sang DPS", "givre tank", "givre DPS", "impie tank", "impie DPS");
-        $speDrood = array("equilibre", "feral DPS", "feral tank", "heal");
+        $speDrood = array("equilibre", "feral DPS", "feral tank", "restauration");
         $spePaladin = array("protection", "sacré", "retribution");
-        $speShaman = array("elementaire", "heal", "amelioration");
+        $speShaman = array("elementaire", "restauration", "amelioration");
         $speDemoniste = array("demono", "destruction", "affliction");
         $spemage = array("arcane", "feu", "givre");
         $speFufu = array("assassination", "combat", "finesse");
@@ -38,7 +38,6 @@ class CharactersFixtures extends Fixture implements DependentFixtureInterface
             $characters = new Characters();
             $random_key = array_rand($class, 1);
             $idUser = random_int(0, 9);
-            $random_user = $this->getReference('user-' . $idUser);
 
             if ($random_key == 0) {
                 $random_spe = array_rand($speWar, 1);
@@ -113,9 +112,8 @@ class CharactersFixtures extends Fixture implements DependentFixtureInterface
                 ->setGearScoreSpe1($gear1)
                 ->setSpeCharacter2($spe2)
                 ->setGearScoreSpe2($gear2)
-                ->setRoleGuild('in Progress')
                 // Récuperation de l'id user.
-                ->setUser($random_user);
+                ->setUser($this->getReference('user-' . $idUser));
             $manager->persist($characters);
         }
         $manager->flush();

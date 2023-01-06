@@ -23,6 +23,7 @@ class InstancesFixtures extends Fixture
             $faker = Factory::create('fr-FR');
             $instance->setNameInstance($faker->unique()->name(2, true));
             $manager->persist($instance);
+            $this->addReference('instance-' . $i, $instance);
         }
         $manager->flush();
     }

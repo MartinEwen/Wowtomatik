@@ -19,11 +19,13 @@ class BossFixtures extends Fixture implements DependentFixtureInterface
     }
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $boss = new Boss();
             $faker = Factory::create('fr-FR');
+            $idInstance = random_int(0, 9);
             $boss->setNameBoss($faker->unique()->name(2, true))
-                ->setImgBoss($faker->unique()->numberBetween(0, 1000));
+                ->setImgBoss($faker->unique()->numberBetween(0, 1000))
+                ->setInstance($this->getReference('instance-' . $idInstance));
             $manager->persist($boss);
         }
         $manager->flush();

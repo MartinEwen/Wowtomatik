@@ -18,9 +18,7 @@ class CharactersType extends AbstractType
             ->add('speCharacter1')
             ->add('gearScoreSpe1')
             ->add('speCharacter2')
-            ->add('gearScoreSpe2')
-            ->add('roleGuild')
-        ;
+            ->add('gearScoreSpe2');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

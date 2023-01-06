@@ -26,6 +26,7 @@ class UserFixtures extends Fixture
             $user->setEmail($faker->email())
                 ->setRoles(['ROLE_USER'])
                 ->setPseudo($faker->word(1, true))
+                ->setAgreeTerms(true)
                 ->setPassword($this->passwordEncoder->hashPassword(
                     $user,
                     'user'
