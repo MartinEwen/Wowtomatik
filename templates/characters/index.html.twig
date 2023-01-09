@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Characters index</h1>
-
+    
     <table class="table">
         <thead>
             <tr>
@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for character in characters %}
+        {% for character in app.user.characters %}
             <tr>
                 <td>{{ character.id }}</td>
                 <td>{{ character.nameCharacter }}</td>

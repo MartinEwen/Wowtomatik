@@ -12,9 +12,7 @@ class GuildsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nameGuild')
-            ->add('numberOfMember')
-        ;
+            ->add('nameGuild');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

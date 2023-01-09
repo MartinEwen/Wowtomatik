@@ -3,26 +3,22 @@
 {% block title %}Instances index{% endblock %}
 
 {% block body %}
-    <h1>Instances index</h1>
-
+{% for instance in instances %}
+    <h1>{{instance.nameInstance}}</h1>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>NameInstance</th>
-                <th>actions</th>
+                <th>Boss Dispnible</th>
+                <th>Image du Boss</th>
             </tr>
         </thead>
         <tbody>
-        {% for instance in instances %}
+        {% for boss in instance.bosses %}
             <tr>
-                <td>{{ instance.id }}</td>
-                <td>{{ instance.nameInstance }}</td>
-                <td>
-                    <a href="{{ path('app_instances_show', {'id': instance.id}) }}">show</a>
-                    <a href="{{ path('app_instances_edit', {'id': instance.id}) }}">edit</a>
-                </td>
+                <td>{{ boss.nameBoss }}</td>
+                <td>{{ boss.imgBoss }}</td>
             </tr>
+            
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
@@ -30,6 +26,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+{% endfor %}
     <a href="{{ path('app_instances_new') }}">Create new</a>
 {% endblock %}

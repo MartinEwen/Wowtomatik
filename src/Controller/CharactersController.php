@@ -24,11 +24,13 @@ class CharactersController extends AbstractController
     #[Route('/new', name: 'app_characters_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CharactersRepository $charactersRepository): Response
     {
+        $user = $this->getUser();
         $character = new Characters();
         $form = $this->createForm(CharactersType::class, $character);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $character->setUser($user);
             $charactersRepository->save($character, true);
 
             return $this->redirectToRoute('app_characters_index', [], Response::HTTP_SEE_OTHER);
@@ -69,7 +71,7 @@ class CharactersController extends AbstractController
     #[Route('/{id}', name: 'app_characters_delete', methods: ['POST'])]
     public function delete(Request $request, Characters $character, CharactersRepository $charactersRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$character->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
             $charactersRepository->remove($character, true);
         }
 
