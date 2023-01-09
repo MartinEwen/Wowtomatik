@@ -21,10 +21,10 @@ class Classe
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\ManyToMany(targetEntity: race::class, inversedBy: 'classes')]
+    #[ORM\ManyToMany(targetEntity: Race::class, inversedBy: 'classes')]
     private Collection $race;
 
-    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: characters::class)]
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Characters::class)]
     private Collection $characters;
 
     public function __construct()

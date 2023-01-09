@@ -21,7 +21,7 @@ class Race
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\OneToMany(mappedBy: 'race', targetEntity: characters::class)]
+    #[ORM\OneToMany(mappedBy: 'race', targetEntity: Characters::class)]
     private Collection $characters;
 
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'race')]
