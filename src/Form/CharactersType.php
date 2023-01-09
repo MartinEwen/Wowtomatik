@@ -14,10 +14,7 @@ class CharactersType extends AbstractType
         $builder
             ->add('nameCharacter')
             ->add('lvlCharacter')
-            ->add('classCharacter')
-            ->add('speCharacter1')
             ->add('gearScoreSpe1')
-            ->add('speCharacter2')
             ->add('gearScoreSpe2');
     }
 

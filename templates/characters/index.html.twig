@@ -11,10 +11,7 @@
                 <th>Id</th>
                 <th>NameCharacter</th>
                 <th>LvlCharacter</th>
-                <th>ClassCharacter</th>
-                <th>SpeCharacter1</th>
                 <th>GearScoreSpe1</th>
-                <th>SpeCharacter2</th>
                 <th>GearScoreSpe2</th>
                 <th>RoleGuild</th>
                 <th>userId</th>
@@ -27,13 +24,10 @@
                 <td>{{ character.id }}</td>
                 <td>{{ character.nameCharacter }}</td>
                 <td>{{ character.lvlCharacter }}</td>
-                <td>{{ character.classCharacter }}</td>
-                <td>{{ character.speCharacter1 }}</td>
                 <td>{{ character.gearScoreSpe1 }}</td>
-                <td>{{ character.speCharacter2 }}</td>
                 <td>{{ character.gearScoreSpe2 }}</td>
                 <td>{{ character.roleGuild }}</td>
-                <td> {{ character.user.pseudo }} </td>
+                <td>{{ character.user.pseudo }}</td>
                 <td>
                     <a href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
                     <a href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>

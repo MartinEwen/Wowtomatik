@@ -25,17 +25,8 @@ class Characters
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $lvlCharacter = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $classCharacter = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $speCharacter1 = null;
-
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $gearScoreSpe1 = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $speCharacter2 = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $gearScoreSpe2 = null;
@@ -48,6 +39,14 @@ class Characters
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?Guilds $guilds = null;
+
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Race $race = null;
+
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Classe $classe = null;
 
     public function __construct()
     {
@@ -83,30 +82,6 @@ class Characters
         return $this;
     }
 
-    public function getClassCharacter(): ?string
-    {
-        return $this->classCharacter;
-    }
-
-    public function setClassCharacter(?string $classCharacter): self
-    {
-        $this->classCharacter = $classCharacter;
-
-        return $this;
-    }
-
-    public function getSpeCharacter1(): ?string
-    {
-        return $this->speCharacter1;
-    }
-
-    public function setSpeCharacter1(?string $speCharacter1): self
-    {
-        $this->speCharacter1 = $speCharacter1;
-
-        return $this;
-    }
-
     public function getGearScoreSpe1(): ?int
     {
         return $this->gearScoreSpe1;
@@ -115,18 +90,6 @@ class Characters
     public function setGearScoreSpe1(?int $gearScoreSpe1): self
     {
         $this->gearScoreSpe1 = $gearScoreSpe1;
-
-        return $this;
-    }
-
-    public function getSpeCharacter2(): ?string
-    {
-        return $this->speCharacter2;
-    }
-
-    public function setSpeCharacter2(?string $speCharacter2): self
-    {
-        $this->speCharacter2 = $speCharacter2;
 
         return $this;
     }
@@ -176,6 +139,30 @@ class Characters
     public function setGuilds(?Guilds $guilds): self
     {
         $this->guilds = $guilds;
+
+        return $this;
+    }
+
+    public function getRace(): ?Race
+    {
+        return $this->race;
+    }
+
+    public function setRace(?Race $race): self
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?Classe $classe): self
+    {
+        $this->classe = $classe;
 
         return $this;
     }
