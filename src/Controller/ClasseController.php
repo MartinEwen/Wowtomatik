@@ -29,6 +29,7 @@ class ClasseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $classeRepository->save($classe, true);
 
             return $this->redirectToRoute('app_classe_index', [], Response::HTTP_SEE_OTHER);
@@ -69,7 +70,7 @@ class ClasseController extends AbstractController
     #[Route('/{id}', name: 'app_classe_delete', methods: ['POST'])]
     public function delete(Request $request, Classe $classe, ClasseRepository $classeRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$classe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $classe->getId(), $request->request->get('_token'))) {
             $classeRepository->remove($classe, true);
         }
 
