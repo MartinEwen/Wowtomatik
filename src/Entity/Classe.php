@@ -27,10 +27,14 @@ class Classe
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Characters::class)]
     private Collection $characters;
 
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Specialisation::class)]
+    private Collection $specialisations;
+
     public function __construct()
     {
         $this->race = new ArrayCollection();
         $this->characters = new ArrayCollection();
+        $this->specialisations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,6 +114,36 @@ class Classe
             // set the owning side to null (unless already changed)
             if ($character->getClasse() === $this) {
                 $character->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Specialisation>
+     */
+    public function getSpecialisations(): Collection
+    {
+        return $this->specialisations;
+    }
+
+    public function addSpecialisation(Specialisation $specialisation): self
+    {
+        if (!$this->specialisations->contains($specialisation)) {
+            $this->specialisations->add($specialisation);
+            $specialisation->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialisation(Specialisation $specialisation): self
+    {
+        if ($this->specialisations->removeElement($specialisation)) {
+            // set the owning side to null (unless already changed)
+            if ($specialisation->getClasse() === $this) {
+                $specialisation->setClasse(null);
             }
         }
 

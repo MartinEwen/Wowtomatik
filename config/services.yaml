@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     images_race: '%kernel.project_dir%/public/upload/race'
+    images_classe: '%kernel.project_dir%/public/upload/classe'
+    images_specialisation: '%kernel.project_dir%/public/upload/specialisation'
 
 services:
     # default configuration for services in *this* file
