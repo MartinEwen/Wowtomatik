@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Test\FormInterface;
 
 class CharactersType extends AbstractType
 {
@@ -27,11 +28,38 @@ class CharactersType extends AbstractType
                 'required' => true,
                 'placeholder' => 'Race disponible',
             ])
-            ->add('classe', EntityType::class, [
+            ->add('classe', ChoiceType::class, [
+                'placeholder' => 'classe dispo',
+
+            ])
+            // ->add('classe', EntityType::class, [
+            //     'class' => Classe::class,
+            //     'choice_label' => 'name',
+            //     'required' => true,
+            //     'placeholder' => 'classe dispo'
+            // ])
+        ;
+
+
+        $formModifier = function (FormInterface $form, Race $race = null) {
+            $classe = (null === $race) ? [] : $race->getClasses();
+
+            $form->add('classe', EntityType::class, [
                 'class' => Classe::class,
+                'choices' => $classe,
                 'choice_label' => 'name',
-                'placeholder' => 'toto'
+                'placeholder' => 'classe dispo',
+                'label' => 'classe'
             ]);
+        };
+
+        $builder->get('race')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $race = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $race);
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
