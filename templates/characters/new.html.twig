@@ -15,9 +15,8 @@
 
         race.addEventListener('change', function(){
             let form = this.closest('form');
-            let data =  this.value;
-            console.log(data);
-            
+            let data = this.value;
+                console.log(data);
             fetch(form.action, {
                 method: form.getAttribute("method"),
                 body: data,
@@ -31,7 +30,6 @@
                 let content = document.createElement('html');
                 content.innerHTML = html;
                 let newSelect = content.querySelector('#characters_classe');
-                console.log(newSelect);
                 document.querySelector('#characters_classe').replaceWith(newSelect);
             })
           .catch(error => {
@@ -40,4 +38,5 @@
         });
     }
     </script>
+   
 {% endblock %}
