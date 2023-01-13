@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Classe;
 use App\Entity\Characters;
 use App\Form\CharactersType;
+use App\Repository\ClasseRepository;
 use App\Repository\CharactersRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\RaceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,13 +25,52 @@ class CharactersController extends AbstractController
         ]);
     }
 
+
+    private $classeRepository;
+    private $raceRepository;
+
+    public function __construct(ClasseRepository $classeRepository, RaceRepository $raceRepository)
+    {
+        $this->classeRepository = $classeRepository;
+        $this->raceRepository = $raceRepository;
+    }
+
+
+    private function getRacesChoices()
+    {
+        return $this->raceRepository->findAll();
+    }
+
+
+    private function getClassesChoices()
+    {
+        return $this->classeRepository->findAll();
+    }
+
+
     #[Route('/new', name: 'app_characters_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CharactersRepository $charactersRepository): Response
     {
         $user = $this->getUser();
         $character = new Characters();
-        $form = $this->createForm(CharactersType::class, $character);
+        $form = $this->createForm(CharactersType::class, $character, [
+            'races' => $this->getRacesChoices(),
+            'classes' => $this->getClassesChoices()
+        ]);
         $form->handleRequest($request);
+
+        if ($request->isXmlHttpRequest() && $request->isMethod('POST')) {
+            if ($request->request->has('race')) {
+                $race = $request->request->get('race');
+                $classes = $this->classeRepository->findBy(['race' => $race]);
+                $classeChoices = [];
+                foreach ($classes as $classe) {
+                    $classeChoices[$classe->getName()] = $classe->getName();
+                }
+                return new JsonResponse($classeChoices);
+            }
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $character->setUser($user);

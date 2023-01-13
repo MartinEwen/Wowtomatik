@@ -8,7 +8,7 @@
     {{ include('characters/_form.html.twig') }}
 
     <a href="{{ path('app_characters_index') }}">back to list</a>
-     <script>
+     {# <script>
     window.onload = () => {
 
         let race = document.querySelector('#characters_race');
@@ -37,6 +37,25 @@
           });
         });
     }
+    </script> #}
+
+    <script>
+        $(document).ready(function() {
+            $('#characters_race').change(function() {
+                $('#characters_classe').attr('disabled', false);
+                var selectedRace = $(this).val();
+                console.log(selectedRace);
+                $.ajax({
+                    url: "{{ path('app_characters_new') }}",
+                    type: "POST",
+                    data: {race: selectedRace},
+                    success: function(data) {
+                        $('#characters_classe').html(data);
+                    }
+                });
+            });
+        });
     </script>
+
    
 {% endblock %}
