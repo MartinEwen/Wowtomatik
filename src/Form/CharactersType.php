@@ -5,8 +5,6 @@ namespace App\Form;
 use App\Entity\Race;
 use App\Entity\Classe;
 use App\Entity\Characters;
-use Doctrine\ORM\EntityRepository;
-use App\Repository\ClasseRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;

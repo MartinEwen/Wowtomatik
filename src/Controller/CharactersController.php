@@ -80,25 +80,4 @@ class CharactersController extends AbstractController
 
         return $this->redirectToRoute('app_characters_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
-
-    #[Route('/ajax/handle-request', name: 'handle_ajax_request', methods: ['POST'])]
-    public function handleAjaxRequest(Request $request): JsonResponse
-    {
-        $selectedRace = $request->request->get('race');
-        $classes = $this->entityManager->getRepository(Classe::class)->findBy(['race' => $selectedRace]);
-        $classesArray = array();
-        foreach ($classes as $classe) {
-            $classesArray[$classe->getId()] = $classe->getName();
-        }
-        return new JsonResponse($classesArray);
-    }
 }
