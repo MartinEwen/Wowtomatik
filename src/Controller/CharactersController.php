@@ -91,10 +91,23 @@ class CharactersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_characters_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Characters $character, CharactersRepository $charactersRepository): Response
+    public function edit(Request $request, Characters $character, CharactersRepository $charactersRepository, RaceRepository $raceRepository): Response
     {
         $form = $this->createForm(CharactersType::class, $character);
+        $form = $this->createForm(CharactersType::class, $character, [
+            'races' => $this->getRaces(),
+            'classes' => $this->getClasses()
+        ]);
         $form->handleRequest($request);
+        if ($request->isXmlHttpRequest() && $request->isMethod('POST')) {
+            $race = $raceRepository->find($request->request->get('race'));
+            $classes = $race->getClasses();
+            $choices = [];
+            foreach ($classes as $classe) {
+                $choices[$classe->getId()] = $classe->getName();
+            }
+            return new JsonResponse($choices);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $charactersRepository->save($character, true);

@@ -1,45 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Characters index{% endblock %}
+{% block title %}Wowtomatik / Mes personnages{% endblock %}
 
 {% block body %}
-    <h1>Characters index</h1>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NameCharacter</th>
-                <th>LvlCharacter</th>
-                <th>GearScoreSpe1</th>
-                <th>GearScoreSpe2</th>
-                <th>RoleGuild</th>
-                <th>userId</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for character in app.user.characters %}
-            <tr>
-                <td>{{ character.id }}</td>
-                <td>{{ character.nameCharacter }}</td>
-                <td>{{ character.lvlCharacter }}</td>
-                <td>{{ character.gearScoreSpe1 }}</td>
-                <td>{{ character.gearScoreSpe2 }}</td>
-                <td>{{ character.roleGuild }}</td>
-                <td>{{ character.user.pseudo }}</td>
-                <td>
-                    <a href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                    <a href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_characters_new') }}">Create new</a>
+    {% if app.user %}
+
+        <h1 class="text-center mt-5">Personnage de {{ app.user.pseudo }}</h1>
+        <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+            <a class="btn btn-outline-success btn-lg" href="{{ path('app_characters_new') }}">Create new</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NameCharacter</th>
+                    <th>Race</th>
+                    <th>Classe</th>
+                    <th>LvlCharacter</th>
+                    {# <th>GearScoreSpe1</th>
+                    <th>GearScoreSpe2</th> #}
+                    <th>RoleGuild</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for character in app.user.characters %}
+
+                <tr>
+                    <td>{{ character.nameCharacter }}</td>
+                    <td>{{ character.race.name }}</td>
+                    <td>{{ character.classe.name }}</td>
+                    <td>{{ character.lvlCharacter }}</td>
+                    {# <td>{{ character.gearScoreSpe1 }}</td>
+                    <td>{{ character.gearScoreSpe2 }}</td> #}
+                    <td>{{ character.roleGuild }}</td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                        <a class="btn btn-outline-info" href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
+                    </td>
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <h1 class="text-center"><a href="/login">Connectez Vous pour voir votre liste de perso</a></h1>
+
+    {% endif %}
+
 {% endblock %}

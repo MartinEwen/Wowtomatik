@@ -10,4 +10,25 @@
     <a href="{{ path('app_characters_index') }}">back to list</a>
 
     {{ include('characters/_delete_form.html.twig') }}
+    <script>
+        $(document).ready(function() {
+            $('#characters_race').change(function() {
+                $('#characters_classe').attr('disabled', false);
+                var selectedRace = $(this).val();
+                console.log(selectedRace);
+                $.ajax({
+                    url: "{{ path('app_characters_new') }}",
+                    type: "POST",
+                    data: {race: selectedRace},
+                    success: function(data) {
+                        var options = '';
+                        for(var key in data) {
+                        options += '<option value="'+key+'">'+data[key]+'</option>';
+                        }
+                        $('#characters_classe').html(options);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,47 +1,39 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Characters{% endblock %}
+ 
+{% block title %} Wotomatik / {{ character.nameCharacter }}{% endblock %}
 
 {% block body %}
-    <h1>Characters</h1>
+    <h1 class="text-center mt-5 mb-5">{{ character.nameCharacter }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ character.id }}</td>
-            </tr>
-            <tr>
-                <th>NameCharacter</th>
-                <td>{{ character.nameCharacter }}</td>
-            </tr>
-            <tr>
                 <th>LvlCharacter</th>
                 <td>{{ character.lvlCharacter }}</td>
+                <td></td>
             </tr>
             <tr>
-                <th>ClassCharacter</th>
-                <td>{{ character.classCharacter }}</td>
+                <th>race</th>
+                <td>{{ character.race.name }}</td>
+                <td><img src="{{ asset('upload/race/' ~ character.race.picture) }}" width="100"></td>
             </tr>
             <tr>
-                <th>SpeCharacter1</th>
-                <td>{{ character.speCharacter1 }}</td>
+                <th>Classe</th>
+                <td>{{ character.classe.name }}</td>
+                <td><img src="{{ asset('upload/classe/' ~ character.classe.picture) }}" width="100"></td>
             </tr>
-            <tr>
+            {# <tr>
                 <th>GearScoreSpe1</th>
                 <td>{{ character.gearScoreSpe1 }}</td>
             </tr>
             <tr>
-                <th>SpeCharacter2</th>
-                <td>{{ character.speCharacter2 }}</td>
-            </tr>
-            <tr>
                 <th>GearScoreSpe2</th>
                 <td>{{ character.gearScoreSpe2 }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>RoleGuild</th>
                 <td>{{ character.roleGuild }}</td>
+                <td></td>
             </tr>
         </tbody>
     </table>
