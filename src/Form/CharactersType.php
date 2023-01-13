@@ -2,8 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Race;
-use App\Entity\Classe;
 use App\Entity\Characters;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Classe;
 use App\Entity\Characters;
 use App\Form\CharactersType;
 use App\Repository\ClasseRepository;
