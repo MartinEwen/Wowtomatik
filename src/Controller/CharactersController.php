@@ -36,39 +36,37 @@ class CharactersController extends AbstractController
     }
 
 
-    private function getRacesChoices()
+    private function getRaces()
     {
         return $this->raceRepository->findAll();
     }
 
 
-    private function getClassesChoices()
+    private function getClasses()
     {
         return $this->classeRepository->findAll();
     }
 
 
     #[Route('/new', name: 'app_characters_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CharactersRepository $charactersRepository): Response
+    public function new(Request $request, CharactersRepository $charactersRepository, RaceRepository $raceRepository): Response
     {
         $user = $this->getUser();
         $character = new Characters();
         $form = $this->createForm(CharactersType::class, $character, [
-            'races' => $this->getRacesChoices(),
-            'classes' => $this->getClassesChoices()
+            'races' => $this->getRaces(),
+            'classes' => $this->getClasses()
         ]);
         $form->handleRequest($request);
 
         if ($request->isXmlHttpRequest() && $request->isMethod('POST')) {
-            if ($request->request->has('race')) {
-                $race = $request->request->get('race');
-                $classes = $this->classeRepository->findBy(['race' => $race]);
-                $classeChoices = [];
-                foreach ($classes as $classe) {
-                    $classeChoices[$classe->getName()] = $classe->getName();
-                }
-                return new JsonResponse($classeChoices);
+            $race = $raceRepository->find($request->request->get('race'));
+            $classes = $race->getClasses();
+            $choices = [];
+            foreach ($classes as $classe) {
+                $choices[$classe->getId()] = $classe->getName();
             }
+            return new JsonResponse($choices);
         }
 
 

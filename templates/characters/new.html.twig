@@ -50,7 +50,11 @@
                     type: "POST",
                     data: {race: selectedRace},
                     success: function(data) {
-                        $('#characters_classe').html(data);
+                        var options = '';
+                        for(var key in data) {
+                        options += '<option value="'+key+'">'+data[key]+'</option>';
+                        }
+                        $('#characters_classe').html(options);
                     }
                 });
             });
