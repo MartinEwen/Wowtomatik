@@ -25,10 +25,14 @@ class Guilds
     #[ORM\OneToMany(mappedBy: 'guilds', targetEntity: Characters::class)]
     private Collection $characters;
 
+    #[ORM\Column]
+    private ?\DateTime $createdAt = null;
+
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -88,5 +92,10 @@ class Guilds
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
     }
 }

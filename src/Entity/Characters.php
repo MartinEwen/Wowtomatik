@@ -19,7 +19,7 @@ class Characters
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true, unique: true)]
     private ?string $nameCharacter = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
@@ -32,7 +32,7 @@ class Characters
     private ?int $gearScoreSpe2 = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $roleGuild = null;
+    private ?string $roleGuild;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?User $user = null;

@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Guilds;
 use App\Form\GuildsType;
+use App\Repository\CharactersRepository;
 use App\Repository\GuildsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/guilds')]
 class GuildsController extends AbstractController
@@ -21,17 +22,35 @@ class GuildsController extends AbstractController
         ]);
     }
 
+    #[Route('/error', name: 'app_guilds_error', methods: ['GET'])]
+    public function error(GuildsRepository $guildsRepository): Response
+    {
+        return $this->render('guilds/error.html.twig', [
+            'guilds' => $guildsRepository->findAll(),
+            // var_dump(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_guilds_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GuildsRepository $guildsRepository): Response
+    public function new(Request $request, GuildsRepository $guildsRepository, CharactersRepository $charactersRepository): Response
     {
         $guild = new Guilds();
         $form = $this->createForm(GuildsType::class, $guild);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $guildsRepository->save($guild, true);
-
-            return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
+            $characterId = $request->request->get('characterId');
+            $character = $charactersRepository->find($characterId);
+            if ($character) {
+                $guild->getCreatedAt(new \DateTime());
+                $guild->addCharacter($character);
+                $character->setRoleGuild('ROLE_GUILDMASTER');
+                $character->setGuilds($guild);
+                $guildsRepository->save($guild, true);
+                return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('app_guilds_error', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('guilds/new.html.twig', [
@@ -69,7 +88,7 @@ class GuildsController extends AbstractController
     #[Route('/{id}', name: 'app_guilds_delete', methods: ['POST'])]
     public function delete(Request $request, Guilds $guild, GuildsRepository $guildsRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$guild->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $guild->getId(), $request->request->get('_token'))) {
             $guildsRepository->remove($guild, true);
         }
 

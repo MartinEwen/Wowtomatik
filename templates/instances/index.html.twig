@@ -18,14 +18,14 @@
                 <td>{{ boss.nameBoss }}</td>
                 <td>{{ boss.imgBoss }}</td>
             </tr>
-            
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
         {% endfor %}
         </tbody>
     </table>
+            
+        {% else %}
+
+            <h1>no records found</h1>
+            
 {% endfor %}
     <a href="{{ path('app_instances_new') }}">Create new</a>
 {% endblock %}
