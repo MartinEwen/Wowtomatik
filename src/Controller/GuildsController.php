@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Characters;
 use App\Entity\Guilds;
 use App\Form\GuildsType;
-use App\Repository\CharactersRepository;
 use App\Repository\GuildsRepository;
+use App\Repository\CharactersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,37 +23,16 @@ class GuildsController extends AbstractController
         ]);
     }
 
-    #[Route('/error', name: 'app_guilds_error', methods: ['GET'])]
-    public function error(GuildsRepository $guildsRepository): Response
-    {
-        return $this->render('guilds/error.html.twig', [
-            'guilds' => $guildsRepository->findAll(),
-            // var_dump(),
-        ]);
-    }
-
-    #[Route('/new', name: 'app_guilds_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GuildsRepository $guildsRepository, CharactersRepository $charactersRepository): Response
+    #[Route('/new/{character}', name: 'app_guilds_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, GuildsRepository $guildsRepository): Response
     {
         $guild = new Guilds();
         $form = $this->createForm(GuildsType::class, $guild);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $characterId = $request->request->get('characterId');
-            $character = $charactersRepository->find($characterId);
-            if ($character) {
-                $guild->getCreatedAt(new \DateTime());
-                $guild->addCharacter($character);
-                $character->setRoleGuild('ROLE_GUILDMASTER');
-                $character->setGuilds($guild);
-                $guildsRepository->save($guild, true);
-                return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
-            } else {
-                return $this->redirectToRoute('app_guilds_error', [], Response::HTTP_SEE_OTHER);
-            }
+            $guildsRepository->save($guild, true);
+            return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('guilds/new.html.twig', [
             'guild' => $guild,
             'form' => $form,

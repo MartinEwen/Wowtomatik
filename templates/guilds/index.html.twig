@@ -33,5 +33,13 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_guilds_new') }}">Create new</a>
+    {# <a href="{{ path('app_guilds_new', {'character' : selectedValue}) }}">Create new</a> #}
+    <a id="myLink">Create new</a>
+    <script>
+        $(document).ready(function(){
+            var select = document.querySelector("#mySelect");
+            var selectedValue = select.options[select.selectedIndex].value;
+            $("#myLink").attr("href", "/guilds/new/" + selectedValue);
+        });
+    </script>
 {% endblock %}
