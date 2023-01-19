@@ -6,6 +6,7 @@ use App\Entity\Guilds;
 use App\Form\GuildsType;
 use App\Repository\GuildsRepository;
 use App\Repository\CharactersRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,10 +74,18 @@ class GuildsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_guilds_delete', methods: ['POST'])]
-    public function delete(Request $request, Guilds $guild, GuildsRepository $guildsRepository): Response
+    public function delete(Request $request, Guilds $guild, GuildsRepository $guildsRepository, CharactersRepository $charactersRepository, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $guild->getId(), $request->request->get('_token'))) {
-            $guildsRepository->remove($guild, true);
+            $characters = $charactersRepository->findBy(['guilds' => $guild]);
+            foreach ($characters as $character) {
+                $character->setGuilds(null);
+                $character->setRoleGuild("ROLE_NONE");
+                $charactersRepository->save($character);
+            }
+            $em->flush();
+            $guildsRepository->remove($guild);
+            $em->flush();
         }
 
         return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
