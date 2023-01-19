@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Characters;
 use App\Entity\Guilds;
 use App\Form\GuildsType;
 use App\Repository\GuildsRepository;
@@ -24,13 +23,21 @@ class GuildsController extends AbstractController
     }
 
     #[Route('/new/{character}', name: 'app_guilds_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GuildsRepository $guildsRepository): Response
+    public function new(Request $request, GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character): Response
     {
         $guild = new Guilds();
         $form = $this->createForm(GuildsType::class, $guild);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $character = $characterRepository->find($character);
+        $role = $character->getRoleGuild();
+        var_dump($role);
+        if ($form->isSubmitted() && $form->isValid() && $role == "ROLE_NONE") {
             $guildsRepository->save($guild, true);
+            if ($guild->getId()) {
+                $character->setGuilds($guild);
+                $character->setRoleGuild("ROLE_GUILDMASTER");
+                $characterRepository->save($character, true);
+            }
             return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('guilds/new.html.twig', [
