@@ -14,7 +14,6 @@
             $('#characters_race').change(function() {
                 $('#characters_classe').attr('disabled', false);
                 var selectedRace = $(this).val();
-                console.log(selectedRace);
                 $.ajax({
                     url: "{{ path('app_characters_new') }}",
                     type: "POST",

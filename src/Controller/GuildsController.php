@@ -15,11 +15,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/guilds')]
 class GuildsController extends AbstractController
 {
-    #[Route('/', name: 'app_guilds_index', methods: ['GET'])]
-    public function index(GuildsRepository $guildsRepository): Response
+
+    #[Route('/{character}', name: 'app_guilds_index', methods: ['GET', 'POST'])]
+    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, Request $request, $character): Response
     {
+        $character = $characterRepository->find($character);
+        $storedValue  = $character->getId();
         return $this->render('guilds/index.html.twig', [
             'guilds' => $guildsRepository->findAll(),
+            'characters' => $characterRepository->findAll(),
+            'storedValue' => $storedValue,
         ]);
     }
 
@@ -31,7 +36,6 @@ class GuildsController extends AbstractController
         $form->handleRequest($request);
         $character = $characterRepository->find($character);
         $role = $character->getRoleGuild();
-        var_dump($role);
         if ($form->isSubmitted() && $form->isValid() && $role == "ROLE_NONE") {
             $guildsRepository->save($guild, true);
             if ($guild->getId()) {
