@@ -40,14 +40,29 @@
                 <a class="btn" id="myLink">Create new</a>
             {% else %}
             {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
+            <h1>{{ character.guilds.nameguild }}</h1>
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>role</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
             {% for character in filteredCharacters %}
-            <p>{{ character.nameCharacter }}</p>
+                    <tbody>
+                        <tr>
+                            <td>{{ character.nameCharacter }}</td>
+                            <td>{{ character.roleGuild }}</td>
+                            <td>a venir</td>
+                        </tr>
             {% endfor %}
+            </tbody>
+                </table>
             {% endif %}
         {% endif %}
     {% endfor %}
 {% endif %}
-{{ dump(storedValue) }}
     <script>
         $(document).ready(function(){
             var select = document.querySelector("#mySelect");
