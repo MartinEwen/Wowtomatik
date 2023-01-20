@@ -13,13 +13,14 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>NameCharacter</th>
+                    <th>Personnage</th>
                     <th>Race</th>
                     <th>Classe</th>
-                    <th>LvlCharacter</th>
+                    <th>Niveau</th>
                     {# <th>GearScoreSpe1</th>
                     <th>GearScoreSpe2</th> #}
-                    <th>RoleGuild</th>
+                    <th>Rôle Guilde</th>
+                    <th>Guilde</th>
                     <th>actions</th>
                 </tr>
             </thead>
@@ -35,6 +36,11 @@
                     {# <td>{{ character.gearScoreSpe1 }}</td>
                     <td>{{ character.gearScoreSpe2 }}</td> #}
                     <td>{{ character.roleGuild }}</td>
+                    {% if character.roleGuild != "ROLE_NONE" %}
+                        <td>{{ character.guilds.nameGuild }}</td>
+                    {% else %}
+                        <td>Pas de Guild</td>
+                    {% endif %}
                     <td>
                         <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
                         <a class="btn btn-outline-info" href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>

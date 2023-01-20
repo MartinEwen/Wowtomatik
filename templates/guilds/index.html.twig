@@ -39,9 +39,10 @@
                 </table>
                 <a class="btn" id="myLink">Create new</a>
             {% else %}
-            {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
-            <h1>{{ character.guilds.nameguild }}</h1>
-            <table class="table">
+                {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
+                <h1>Guilde {{ character.guilds.nameguild }} </h1>
+                <h3>Personnage selectionné: {{ character.nameCharacter }}</h3>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Member</th>
@@ -49,27 +50,49 @@
                             <th>actions</th>
                         </tr>
                     </thead>
-            {% for character in filteredCharacters %}
                     <tbody>
+                    {% for character in filteredCharacters %}
                         <tr>
                             <td>{{ character.nameCharacter }}</td>
                             <td>{{ character.roleGuild }}</td>
-                            <td>a venir</td>
+                            {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                            <td>
+                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                <a class="btn btn-outline-success" href="#">edit</a>
+                                <a class="btn btn-outline-danger" href="#">delete</a>
+                            </td>
+                            {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                            <td>
+                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                <a class="btn btn-outline-success" href="#">edit</a>
+                            </td>
+                            {% else %}
+                            <td>
+                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                            </td>
+                            {% endif %}
                         </tr>
-            {% endfor %}
-            </tbody>
+                    {% endfor %}
+                    </tbody>
                 </table>
+                {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                    {% for guild in guilds %}
+                        {% if guild.id == selectedCharacter.guilds.id %}
+                            {{ include('guilds/_delete_form.html.twig') }}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endfor %}
 {% endif %}
+
     <script>
         $(document).ready(function(){
             var select = document.querySelector("#mySelect");
             var selectedValue = select.options[select.selectedIndex].value;
             $("#myLink").attr("href", "/guilds/new/" + selectedValue);
         });
-       
-        
     </script>
+    
 {% endblock %}

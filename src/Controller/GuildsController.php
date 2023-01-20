@@ -17,7 +17,7 @@ class GuildsController extends AbstractController
 {
 
     #[Route('/{character}', name: 'app_guilds_index', methods: ['GET', 'POST'])]
-    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, Request $request, $character): Response
+    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character): Response
     {
         $character = $characterRepository->find($character);
         $storedValue  = $character->getId();
@@ -43,7 +43,7 @@ class GuildsController extends AbstractController
                 $character->setRoleGuild("ROLE_GUILDMASTER");
                 $characterRepository->save($character, true);
             }
-            return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('guilds/new.html.twig', [
             'guild' => $guild,
@@ -77,7 +77,7 @@ class GuildsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_guilds_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_guilds_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Guilds $guild, GuildsRepository $guildsRepository, CharactersRepository $charactersRepository, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $guild->getId(), $request->request->get('_token'))) {
@@ -92,6 +92,6 @@ class GuildsController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 }
