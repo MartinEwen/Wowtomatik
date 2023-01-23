@@ -15,17 +15,17 @@
     {% if app.user %}
 
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Tu es connecter {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
 
     {% else %}
 
         <div class="row">
             <div class="col-6">
-                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <h3 class="mb-3 font-weight-normal">Connexion</h3>
                     <label for="inputEmail">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword">Mot de Passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
                     <input type="hidden" name="_csrf_token"
@@ -51,8 +51,8 @@
                     </button>
                 </form>
             </div>
-            <div class="col-6">
-                <h1 class="">Pas encore Inscrit?</h1>
+            <div class="col-6" id="inscription">
+                <h3>Pas encore Inscrit?</h3>
                 <a href="/register" class="btn btn-primary mt-5 btn-lg ">C'est par là</a>
             </div>
         </div>

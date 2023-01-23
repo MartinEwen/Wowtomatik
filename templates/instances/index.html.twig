@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Instances index{% endblock %}
+{% block title %}Wowtomatik / Instances{% endblock %}
 
 {% block body %}
 {% for instance in instances %}
@@ -27,5 +27,5 @@
             <h1>no records found</h1>
             
 {% endfor %}
-    <a href="{{ path('app_instances_new') }}">Create new</a>
+    <a class="btn" href="{{ path('app_instances_new') }}">Create new</a>
 {% endblock %}

@@ -1,0 +1,116 @@
+html,
+body {
+    background-color: black;
+    margin-top: 7%;
+}
+
+h1,
+h2,
+h3 {
+    color: white;
+    text-shadow: 2px 2px rgb(33, 112, 177);
+    text-align: center;
+}
+
+label {
+    margin: 10px;
+    color: white;
+}
+
+nav {
+    backdrop-filter: blur(5px);
+    border-radius: inherit;
+    -webkit-backdrop-filter: blur(5px);
+}
+
+#inscription {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    border-radius: 10px;
+}
+
+.form-check-label {
+    margin: 0;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+    margin-top: 5px;
+}
+
+tr,
+td {
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+img {
+    border-radius: 10px;
+    box-shadow: 3px 3px white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .btn,
+    .form-check {
+        margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 1225px) and (min-width: 1045px) {
+    .priority-5 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1045px) and (min-width: 565px) {
+    .priority-5 {
+        display: none;
+    }
+
+    .priority-4 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 565px) and (min-width: 300px) {
+    .priority-5 {
+        display: none;
+    }
+
+    .priority-4 {
+        display: none;
+    }
+
+    .priority-3 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .priority-5 {
+        display: none;
+    }
+
+    .priority-4 {
+        display: none;
+    }
+
+    .priority-3 {
+        display: none;
+    }
+
+    .priority-2 {
+        display: none;
+    }
+
+}

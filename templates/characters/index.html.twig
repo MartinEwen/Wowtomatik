@@ -13,15 +13,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Personnage</th>
-                    <th>Race</th>
-                    <th>Classe</th>
-                    <th>Niveau</th>
-                    {# <th>GearScoreSpe1</th>
-                    <th>GearScoreSpe2</th> #}
-                    <th>Rôle Guilde</th>
-                    <th>Guilde</th>
-                    <th>actions</th>
+                    <th class="priority-1">Personnage</th>
+                    <th class="priority-5">Race</th>
+                    <th class="priority-2">Classe</th>
+                    <th class="priority-3">Niveau</th>
+                    <th class="priority-4">Rôle Guilde</th>
+                    <th class="priority-4">Guilde</th>
+                    <th class="priority-1">actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,19 +27,17 @@
             {% for character in app.user.characters %}
 
                 <tr>
-                    <td>{{ character.nameCharacter }}</td>
-                    <td>{{ character.race.name }}</td>
-                    <td>{{ character.classe.name }}</td>
-                    <td>{{ character.lvlCharacter }}</td>
-                    {# <td>{{ character.gearScoreSpe1 }}</td>
-                    <td>{{ character.gearScoreSpe2 }}</td> #}
-                    <td>{{ character.roleGuild }}</td>
+                    <td class="priority-1">{{ character.nameCharacter }}</td>
+                    <td class="priority-5">{{ character.race.name }}</td>
+                    <td class="priority-2">{{ character.classe.name }}</td>
+                    <td class="priority-3">{{ character.lvlCharacter }}</td>
+                    <td class="priority-4">{{ character.roleGuild }}</td>
                     {% if character.roleGuild != "ROLE_NONE" %}
-                        <td>{{ character.guilds.nameGuild }}</td>
+                        <td class="priority-4">{{ character.guilds.nameGuild }}</td>
                     {% else %}
-                        <td>Pas de Guild</td>
+                        <td class="priority-4">Pas de Guild</td>
                     {% endif %}
-                    <td>
+                    <td class="priority-1">
                         <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
                         <a class="btn btn-outline-info" href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
                     </td>
