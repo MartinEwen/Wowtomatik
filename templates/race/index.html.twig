@@ -19,8 +19,8 @@
                 <td>{{ race.name }}</td>
                 <td class="priority-3"><img src="{{ asset('upload/race/' ~ race.picture) }}" width="100"></td>
                 <td>
-                    <a class="btn" href="{{ path('app_race_show', {'id': race.id}) }}">show</a>
-                    <a class="btn" href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
+                    <a class="btn btn-outline-primary" href="{{ path('app_race_show', {'id': race.id}) }}">show</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

@@ -1,7 +1,6 @@
-html,
 body {
     background-color: black;
-    margin-top: 7%;
+    margin-top: 100px;
 }
 
 h1,
@@ -50,6 +49,7 @@ td {
 }
 
 img {
+    border: 1px solid white;
     border-radius: 10px;
     box-shadow: 3px 3px white;
 }

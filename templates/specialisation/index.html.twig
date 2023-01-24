@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Picture</th>
                 <th>actions</th>
@@ -17,12 +16,11 @@
         <tbody>
         {% for specialisation in specialisations %}
             <tr>
-                <td>{{ specialisation.id }}</td>
                 <td>{{ specialisation.name }}</td>
-                <td><img src="{{ asset('upload/specialisation/' ~ specialisation.picture) }}" width="100"></td>
+                <td><img src="{{ asset('upload/specialisation/' ~ specialisation.picture) }}" width="50"></td>
                 <td>
-                    <a href="{{ path('app_specialisation_show', {'id': specialisation.id}) }}">show</a>
-                    <a href="{{ path('app_specialisation_edit', {'id': specialisation.id}) }}">edit</a>
+                    <a class="btn btn-outline-primary" href="{{ path('app_specialisation_show', {'id': specialisation.id}) }}">show</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_specialisation_edit', {'id': specialisation.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

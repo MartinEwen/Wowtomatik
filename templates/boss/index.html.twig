@@ -23,8 +23,8 @@
                 <td>{{ boss.imgBoss }}</td>
                 <td> {{ boss.instance.nameInstance }} </td>
                 <td>
-                    <a href="{{ path('app_boss_show', {'id': boss.id}) }}">show</a>
-                    <a href="{{ path('app_boss_edit', {'id': boss.id}) }}">edit</a>
+                    <a class="btn btn-outline-primary"  href="{{ path('app_boss_show', {'id': boss.id}) }}">show</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_boss_edit', {'id': boss.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
