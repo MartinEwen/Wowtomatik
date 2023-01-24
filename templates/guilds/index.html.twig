@@ -4,28 +4,29 @@
 
 {% block body %}
 {% if storedValue is not null %}
-
     {% for character in characters %}
         {% if character.id == storedValue %}
-        {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
+            {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
             {% if character.roleGuild == "ROLE_NONE" %}
-                <h1>Guilds index</h1>
+                <h1>Annuaire des Guildes</h1>
                 <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                     <a class="btn btn-outline-success btn-lg" id="myLink">Je veux crée ma Guilde</a>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>NameGuild</th>
-                            <th class="priority-4">NumberOfMember</th>
-                            <th>actions</th>
+                            <th>Guilde</th>
+                            <th class="priority-4">Nombre de Membres</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for guild in guilds %}
                         <tr>
                             <td>{{ guild.nameGuild }}</td>
-                            <td class="priority-4">{{ guild.numberOfMember }}</td>
+                            <td class="priority-4">
+                                {{ charactersCount[guild.id] }}
+                            </td>
                             <td>
                                 <a class="btn btn-outline-success" href="">Rejoindre</a>
                             </td>

@@ -21,10 +21,17 @@ class GuildsController extends AbstractController
     {
         $character = $characterRepository->find($character);
         $storedValue  = $character->getId();
+        $guilds = $guildsRepository->findAll();
+        $charactersCount = [];
+        foreach ($guilds as $guild) {
+            $charactersCount[$guild->getId()] = $characterRepository->countByGuilds($guild->getId());
+        }
         return $this->render('guilds/index.html.twig', [
             'guilds' => $guildsRepository->findAll(),
             'characters' => $characterRepository->findAll(),
             'storedValue' => $storedValue,
+            'guilds' => $guilds,
+            'charactersCount' => $charactersCount
         ]);
     }
 

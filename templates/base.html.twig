@@ -89,7 +89,7 @@
           var select = document.getElementById("mySelect");
           var selectedValue = select.options[select.selectedIndex].value;
           localStorage.setItem("selectedValue", selectedValue);
-          location.reload(true);
+          window.location.href = "/";
           document.getElementById("selectedValue").innerHTML = localStorage.getItem("selectedValue");
         }
          $(document).ready(function(){
