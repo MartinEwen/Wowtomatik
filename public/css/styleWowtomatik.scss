@@ -41,6 +41,7 @@ input {
     margin-top: 5px;
 }
 
+
 tr,
 td {
     color: white;
@@ -64,7 +65,14 @@ form {
     .form-check {
         margin-top: 25px;
     }
+
+    .reset {
+        margin-top: 0;
+    }
 }
+
+
+
 
 @media screen and (max-width: 1225px) and (min-width: 1045px) {
     .priority-5 {

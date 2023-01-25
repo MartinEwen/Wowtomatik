@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Guilds;
 use App\Form\GuildsType;
 use App\Repository\GuildsRepository;
+use App\Repository\ApplicantRepository;
 use App\Repository\CharactersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class GuildsController extends AbstractController
 {
 
     #[Route('/{character}', name: 'app_guilds_index', methods: ['GET', 'POST'])]
-    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character): Response
+    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character, ApplicantRepository $applicantRepository): Response
     {
         $character = $characterRepository->find($character);
         $storedValue  = $character->getId();
@@ -29,6 +30,7 @@ class GuildsController extends AbstractController
         return $this->render('guilds/index.html.twig', [
             'guilds' => $guildsRepository->findAll(),
             'characters' => $characterRepository->findAll(),
+            'applicants' => $applicantRepository->findAll(),
             'storedValue' => $storedValue,
             'guilds' => $guilds,
             'charactersCount' => $charactersCount
@@ -83,6 +85,21 @@ class GuildsController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+    #[Route('/add/{id}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
+    public function add(Guilds $guild, GuildsRepository $guildsRepository, ApplicantRepository $applicantRepository, CharactersRepository $charactersRepository, $id, $character): Response
+    {
+        $guild = $guildsRepository->find($id);
+        $character = $charactersRepository->find($character);
+        if ($guild->getId()) {
+            $character->setGuilds($guild);
+            $character->setRoleGuild("ROLE_MEMBER");
+            $charactersRepository->save($character, true);
+        }
+        return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
+    }
+
 
     #[Route('/delete/{id}', name: 'app_guilds_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Guilds $guild, GuildsRepository $guildsRepository, CharactersRepository $charactersRepository, EntityManagerInterface $em): Response

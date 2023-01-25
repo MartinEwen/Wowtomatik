@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Applicant{% endblock %}
+
+{% block body %}
+    <h1>Applicant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ applicant.id }}</td>
+            </tr>
+            <tr>
+                <th>Accept</th>
+                <td>{{ applicant.accept ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_applicant_index') }}">back to list</a>
+
+    <a href="{{ path('app_applicant_edit', {'id': applicant.id}) }}">edit</a>
+
+    {{ include('applicant/_delete_form.html.twig') }}
+{% endblock %}

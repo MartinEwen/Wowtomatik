@@ -73,7 +73,7 @@ class CharactersController extends AbstractController
             $character->setUser($user);
             $charactersRepository->save($character, true);
 
-            return $this->redirectToRoute('app_characters_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('characters/new.html.twig', [

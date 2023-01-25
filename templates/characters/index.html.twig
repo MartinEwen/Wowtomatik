@@ -31,7 +31,15 @@
                     <td class="priority-5">{{ character.race.name }}</td>
                     <td class="priority-2">{{ character.classe.name }}</td>
                     <td class="priority-3">{{ character.lvlCharacter }}</td>
-                    <td class="priority-4">{{ character.roleGuild }}</td>
+                    {% if character.roleGuild == "ROLE_MEMBER" %}
+                        <td class="priority-4">Membre</td>
+                    {% elseif character.roleGuild == "ROLE_OFFICER" %}
+                        <td class="priority-4">Officier</td>
+                    {% elseif character.roleGuild == "ROLE_GUILDMASTER" %}
+                        <td class="priority-4">Maitre de Guilde</td>
+                    {% else %}
+                        <td class="priority-4"></td>
+                    {% endif %}
                     {% if character.roleGuild != "ROLE_NONE" %}
                         <td class="priority-4">{{ character.guilds.nameGuild }}</td>
                     {% else %}

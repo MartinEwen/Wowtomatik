@@ -19,20 +19,20 @@ class Guilds
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nameGuild = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $numberOfMember = null;
-
     #[ORM\OneToMany(mappedBy: 'guilds', targetEntity: Characters::class)]
     private Collection $characters;
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'guild', targetEntity: Applicant::class)]
+    private Collection $applicant;
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->applicant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,18 +48,6 @@ class Guilds
     public function setNameGuild(?string $nameGuild): self
     {
         $this->nameGuild = $nameGuild;
-
-        return $this;
-    }
-
-    public function getNumberOfMember(): ?int
-    {
-        return $this->numberOfMember;
-    }
-
-    public function setNumberOfMember(?int $numberOfMember): self
-    {
-        $this->numberOfMember = $numberOfMember;
 
         return $this;
     }
@@ -97,5 +85,35 @@ class Guilds
     public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return Collection<int, Applicant>
+     */
+    public function getApplicant(): Collection
+    {
+        return $this->applicant;
+    }
+
+    public function addApplicant(Applicant $applicant): self
+    {
+        if (!$this->applicant->contains($applicant)) {
+            $this->applicant->add($applicant);
+            $applicant->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicant(Applicant $applicant): self
+    {
+        if ($this->applicant->removeElement($applicant)) {
+            // set the owning side to null (unless already changed)
+            if ($applicant->getGuild() === $this) {
+                $applicant->setGuild(null);
+            }
+        }
+
+        return $this;
     }
 }

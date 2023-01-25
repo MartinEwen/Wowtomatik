@@ -15,9 +15,9 @@ class Characters
     public const ROLE_GUILDMASTER = 'ROLE_GUILDMASTER';
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: true, unique: true)]
     private ?string $nameCharacter = null;

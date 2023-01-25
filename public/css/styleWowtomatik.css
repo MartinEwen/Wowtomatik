@@ -64,6 +64,9 @@ form .btn,
 form .form-check {
   margin-top: 25px;
 }
+form .reset {
+  margin-top: 0;
+}
 
 @media screen and (max-width: 1225px) and (min-width: 1045px) {
   .priority-5 {
