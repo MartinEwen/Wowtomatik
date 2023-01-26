@@ -3,166 +3,177 @@
 {% block title %}Guilds index{% endblock %}
 
 {% block body %}
-{% if storedValue is not null %}
-    {% for character in characters %}
-        {% if character.id == storedValue %}
-            {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
-            {% if character.roleGuild == "ROLE_NONE" %}
-                <h1>Candidature aux Guildes</h1>
+        {% if storedValue is not null %}
+            {% for character in characters %}
+                {% if character.id == storedValue %}
+                    {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
+                    {% if character.roleGuild == "ROLE_NONE" %}
+                        <h1>Candidature aux Guildes</h1>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Guilde</th>
-                            <th>Accept</th>
-                            <th>actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for applicant in applicants %}
-                        {% if applicant.characters.id == storedValue %}
-                            <tr>
-                                <td>{{ applicant.guild.nameGuild }}</td>
-                                {% if applicant.accept == true %}
-                                    <td>Candidature en cours</td>
-                                {% elseif applicant.accept == false %}
-                                    <td>Candidature Refuser</td>
-                                {% endif %}
-                                <td>
-                                    <form method="post" action="{{ path('app_applicant_delete', {'id': applicant.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ applicant.id) }}">
-                                        <button class="btn btn-outline-danger reset">Suppression de la Candidature</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% else %}
-                        <tr>
-                            <td colspan="3">no records found</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <br>
-                <h1>Annuaire des Guildes</h1>
-                <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
-                    <a class="btn btn-outline-success btn-lg" id="myLink">Je veux crée ma Guilde</a>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Guilde</th>
-                            <th class="priority-4">Nombre de Membres</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for guild in guilds %}
-                        <tr>
-                            <td>{{ guild.nameGuild }}</td>
-                            <td class="priority-4">
-                                {{ charactersCount[guild.id] }}
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-success" value="{{ guild.id }}" href="/applicant/new/{{guild.id}}/{{character.id}}">Rejoindre</a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4">no records found</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                
-            {% else %}
-                {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
-                <h1>Guilde {{ character.guilds.nameguild }} </h1>
-                <h3>Personnage selectionné: {{ character.nameCharacter }}</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Member</th>
-                            <th>role</th>
-                            <th>actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for character in filteredCharacters %}
-                        <tr>
-                            <td>{{ character.nameCharacter }}</td>
-                            {% if character.roleGuild == "ROLE_MEMBER" %}
-                                <td>Membre</td>
-                            {% elseif character.roleGuild == "ROLE_OFFICER" %}
-                                <td>Officier</td>
-                            {% elseif character.roleGuild == "ROLE_GUILDMASTER" %}
-                                <td>Maitre de Guilde</td>
-                            {% endif %}
-                            {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                            <td>
-                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                                <a class="btn btn-outline-success" href="#">edit</a>
-                                <a class="btn btn-outline-danger" href="#">delete</a>
-                            </td>
-                            {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                            <td>
-                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                                <a class="btn btn-outline-success" href="#">edit</a>
-                            </td>
-                            {% else %}
-                            <td>
-                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                            </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <h3>Candidats</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Candidat</th>
-                            <th>Race</th>
-                            <th>Niveau</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                        {% for applicant in applicants  %}
-                            {% if applicant.guild.id == selectedCharacter.guilds.id %}
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{{ applicant.characters.nameCharacter }}</td>
-                                    <td>{{ applicant.characters.race.name }}</td>
-                                    <td>{{ applicant.characters.lvlCharacter }}</td>
+                                    <th>Guilde</th>
+                                    <th>Accept</th>
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for applicant in applicants %}
+                                {% if applicant.characters.id == storedValue %}
+                                    <tr>
+                                        <td>{{ applicant.guild.nameGuild }}</td>
+                                        {% if applicant.accept == true %}
+                                            <td>Candidature en cours</td>
+                                        {% elseif applicant.accept == false %}
+                                            <td>Candidature Refuser</td>
+                                        {% endif %}
+                                        <td>
+                                            <form method="post" action="{{ path('app_applicant_delete', {'id': applicant.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ applicant.id) }}">
+                                                <button class="btn btn-outline-danger reset">Suppression de la Candidature</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                        <h1>Annuaire des Guildes</h1>
+                        <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                            <a class="btn btn-outline-success btn-lg" id="myLink">Je veux crée ma Guilde</a>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Guilde</th>
+                                    <th class="priority-4">Nombre de Membres</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for guild in guilds %}
+                                <tr>
+                                    <td>{{ guild.nameGuild }}</td>
+                                    <td class="priority-4">
+                                        {{ charactersCount[guild.id] }}
+                                    </td>
                                     <td>
-                                        <a href="/guilds/add/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-success">Accepter</a>
-                                        <a href="" class="btn btn-danger">Refuser</a>
+                                        <a class="btn btn-outline-success" value="{{ guild.id }}" href="/applicant/new/{{guild.id}}/{{character.id}}">Rejoindre</a>
                                     </td>
                                 </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                    {% for guild in guilds %}
-                        {% if guild.id == selectedCharacter.guilds.id %}
-                            {{ include('guilds/_delete_form.html.twig') }}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    {% else %}
+                        {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
+                        <h1>Guilde {{ character.guilds.nameguild }} </h1>
+                        <h3>Personnage selectionné: {{ character.nameCharacter }}</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>role</th>
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for character in filteredCharacters %}
+                                <tr>
+                                    <td>{{ character.nameCharacter }}</td>
+                                    {% if character.roleGuild == "ROLE_MEMBER" %}
+                                        <td>Membre</td>
+                                    {% elseif character.roleGuild == "ROLE_OFFICER" %}
+                                        <td>Officier</td>
+                                    {% elseif character.roleGuild == "ROLE_GUILDMASTER" %}
+                                        <td>Maitre de Guilde</td>
+                                    {% endif %}
+                                    <td>
+                                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            <a class="btn btn-outline-success" href="#">edit</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                        {% elseif character == selectedCharacter and selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            <a class="btn btn-outline-success" href="#">edit</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                        {% elseif character == selectedCharacter %}
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                        {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            {% if character.roleGuild != "ROLE_GUILDMASTER" %}
+                                                <a class="btn btn-outline-success" href="#">edit</a>
+                                            {% endif %}
+                                        {% else %}
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" or selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                        <h3>Candidats</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Candidat</th>
+                                    <th>Race</th>
+                                    <th>Niveau</th>
+                                    {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                        <th></th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for applicant in applicants  %}
+                                    {% if applicant.guild.id == selectedCharacter.guilds.id and applicant.accept == true %}
+                                        <tr>
+                                            <td>{{ applicant.characters.nameCharacter }}</td>
+                                            <td>{{ applicant.characters.race.name }}</td>
+                                            <td>{{ applicant.characters.lvlCharacter }}</td>
+                                            {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                                <td>
+                                                    <a href="/guilds/add/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-success">Accepter</a>
+                                                    <a href="/guilds/no/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-danger">Refuser</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% else %}
+                                    <td colspan="4">Aucune candidature en attente</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
                         {% endif %}
-                    {% endfor %}
+                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                            {% for guild in guilds %}
+                                {% if guild.id == selectedCharacter.guilds.id %}
+                                    {{ include('guilds/_delete_form.html.twig') }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
-            {% endif %}
+            {% endfor %}
         {% endif %}
-    {% endfor %}
-{% endif %}
 
-    <script>
-        $(document).ready(function(){
-            var select = document.querySelector("#mySelect");
-            var selectedValue = select.options[select.selectedIndex].value;
-            $("#myLink").attr("href", "/guilds/new/" + selectedValue);
-        });
-    </script>
-    
+        <script>
+            $(document).ready(function(){
+                var select = document.querySelector("#mySelect");
+                var selectedValue = select.options[select.selectedIndex].value;
+                $("#myLink").attr("href", "/guilds/new/" + selectedValue);
+            });
+        </script>
 {% endblock %}

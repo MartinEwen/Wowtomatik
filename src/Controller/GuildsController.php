@@ -87,10 +87,10 @@ class GuildsController extends AbstractController
     }
 
 
-    #[Route('/add/{id}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
-    public function add(Guilds $guild, GuildsRepository $guildsRepository, ApplicantRepository $applicantRepository,  EntityManagerInterface $em, CharactersRepository $charactersRepository, $id, $character): Response
+    #[Route('/add/{guild}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
+    public function add(GuildsRepository $guildsRepository, ApplicantRepository $applicantRepository, EntityManagerInterface $em, CharactersRepository $charactersRepository, $character, $guild): Response
     {
-        $guild = $guildsRepository->find($id);
+        $guild = $guildsRepository->find($guild);
         $character = $charactersRepository->find($character);
         $applicantIDs = array_map(function ($applicant) {
             return $applicant->getID();
@@ -106,6 +106,18 @@ class GuildsController extends AbstractController
             }
             $em->flush();
         }
+        return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/no/{guild}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
+    public function no(ApplicantRepository $applicantRepository, GuildsRepository $guildsRepository, CharactersRepository $characterRepository, EntityManagerInterface $em, $guild, $character): Response
+    {
+        $guild = $guildsRepository->find($guild)->getId();
+        $character = $characterRepository->find($character)->getId();
+        $applicant = $applicantRepository->findOneBy(['guild' => $guild, 'characters' => $character]);
+        $applicant->setAccept(false);
+        $em->persist($applicant);
+        $em->flush();
         return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -125,6 +137,15 @@ class GuildsController extends AbstractController
             $em->flush();
         }
 
+        return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/delete/character/{character}', name: 'app_guilds_delete_character', methods: ['GET', 'POST'])]
+    public function deleteCharacter(CharactersRepository $charactersRepository, $character): Response
+    {
+        $character->setGuilds(null);
+        $character->setRoleGuild("ROLE_NONE");
+        $charactersRepository->save($character);
         return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 }

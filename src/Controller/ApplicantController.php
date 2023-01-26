@@ -33,20 +33,11 @@ class ApplicantController extends AbstractController
         $form->handleRequest($request);
         $guild = $guildsRepository->find($id);
         $character = $characterRepository->find($character);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $applicant->setGuild($guild);
-            $applicant->setCharacters($character);
-            $applicant->setAccept(true);
-            $applicantRepository->save($applicant, true);
-
-            return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('applicant/new.html.twig', [
-            'applicant' => $applicant,
-            'form' => $form,
-        ]);
+        $applicant->setGuild($guild);
+        $applicant->setCharacters($character);
+        $applicant->setAccept(true);
+        $applicantRepository->save($applicant, true);
+        return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_applicant_show', methods: ['GET'])]
