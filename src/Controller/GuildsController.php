@@ -88,14 +88,23 @@ class GuildsController extends AbstractController
 
 
     #[Route('/add/{id}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
-    public function add(Guilds $guild, GuildsRepository $guildsRepository, ApplicantRepository $applicantRepository, CharactersRepository $charactersRepository, $id, $character): Response
+    public function add(Guilds $guild, GuildsRepository $guildsRepository, ApplicantRepository $applicantRepository,  EntityManagerInterface $em, CharactersRepository $charactersRepository, $id, $character): Response
     {
         $guild = $guildsRepository->find($id);
         $character = $charactersRepository->find($character);
+        $applicantIDs = array_map(function ($applicant) {
+            return $applicant->getID();
+        }, $applicantRepository->findBy(array('characters' => $character)));
         if ($guild->getId()) {
             $character->setGuilds($guild);
             $character->setRoleGuild("ROLE_MEMBER");
             $charactersRepository->save($character, true);
+
+            foreach ($applicantIDs as $applicant) {
+                $applicant = $applicantRepository->find($applicant);
+                $em->remove($applicant);
+            }
+            $em->flush();
         }
         return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
