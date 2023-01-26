@@ -109,7 +109,7 @@ class GuildsController extends AbstractController
         return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/no/{guild}/{character}', name: 'app_guilds_add', methods: ['GET', 'POST'])]
+    #[Route('/no/{guild}/{character}', name: 'app_guilds_no', methods: ['GET', 'POST'])]
     public function no(ApplicantRepository $applicantRepository, GuildsRepository $guildsRepository, CharactersRepository $characterRepository, EntityManagerInterface $em, $guild, $character): Response
     {
         $guild = $guildsRepository->find($guild)->getId();
@@ -141,11 +141,14 @@ class GuildsController extends AbstractController
     }
 
     #[Route('/delete/character/{character}', name: 'app_guilds_delete_character', methods: ['GET', 'POST'])]
-    public function deleteCharacter(CharactersRepository $charactersRepository, $character): Response
+    public function deleteCharacter(CharactersRepository $charactersRepository,  EntityManagerInterface $em, $character): Response
     {
+        $character = $charactersRepository->findOneBy(['id' => $character]);
         $character->setGuilds(null);
         $character->setRoleGuild("ROLE_NONE");
         $charactersRepository->save($character);
+
+        $em->flush();
         return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
     }
 }
