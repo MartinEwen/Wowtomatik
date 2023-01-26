@@ -15,7 +15,7 @@
                                 <tr>
                                     <th>Guilde</th>
                                     <th>Accept</th>
-                                    <th>actions</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,7 +84,7 @@
                                 <tr>
                                     <th>Member</th>
                                     <th>role</th>
-                                    <th>actions</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,23 +100,23 @@
                                     {% endif %}
                                     <td>
                                         {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                                            <a class="btn btn-outline-success" href="#">edit</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                            <a class="btn btn-outline-success" href="#">Edition du rôle</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">Suppression</a>
                                         {% elseif character == selectedCharacter and selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                                            <a class="btn btn-outline-success" href="#">edit</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                            <a class="btn btn-outline-success" href="#">Edition du rôle</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
                                         {% elseif character == selectedCharacter %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">delete</a>
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
                                         {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
                                             {% if character.roleGuild != "ROLE_GUILDMASTER" %}
-                                                <a class="btn btn-outline-success" href="#">edit</a>
+                                                <a class="btn btn-outline-success" href="#">Edition du rôle</a>
                                             {% endif %}
                                         {% else %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
+                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
                                         {% endif %}
                                     </td>
                                 </tr>
