@@ -6,7 +6,7 @@
 <h1>Dashbord Admin</h1>
     <div class="container">
         <div class="row">
-            <div class="col-2 dashbord-btn">
+            <div class="col-xxl-2 dashboard">
                 <button class="btn btn-outline-primary" id="1">Boss</button>
                 <button class="btn btn-outline-primary" id="2">Classe</button>
                 <button class="btn btn-outline-primary" id="3">Instance</button>
@@ -16,15 +16,18 @@
                 <button class="btn btn-outline-primary" id="7">Guilde</button>
             </div>
 
-            <div class="col-10">
+            <div class="col-xxl-10 ">
                 <div id="boss">
                     <h1>Boss index</h1>
+                    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                        <a class="btn btn-outline-success btn-lg" href="{{ path('app_boss_new') }}">Nouveau Boss</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>NameBoss</th>
-                                <th>ImgBoss</th>
-                                <th>Instance</th>
+                                <th class="priority-4">ImgBoss</th>
+                                <th class="priority-3">Instance</th>
                                 <th>actions</th>
                             </tr>
                         </thead>
@@ -32,8 +35,8 @@
                         {% for boss in bosses %}
                             <tr>
                                 <td>{{ boss.nameBoss }}</td>
-                                <td class="priority-3"><img src="{{ asset('upload/boss/' ~ boss.imgBoss) }}" width="100"></td>
-                                <td> {{ boss.instance.nameInstance }} </td>
+                                <td class="priority-4"><img src="{{ asset('upload/boss/' ~ boss.imgBoss) }}" width="100"></td>
+                                <td class="priority-3"> {{ boss.instance.nameInstance }} </td>
                                 <td>
                                     <a class="btn btn-outline-primary"  href="{{ path('app_boss_show', {'id': boss.id}) }}">show</a>
                                     <a class="btn btn-outline-info" href="{{ path('app_boss_edit', {'id': boss.id}) }}">edit</a>
@@ -46,11 +49,13 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <a class="btn btn-outline-primary" href="{{ path('app_boss_new') }}">Nouveau Boss</a>
                 </div>
 
                 <div id="classe">
-                    <h1>Classe index</h1>
+                    <h1>Liste des Classe</h1>
+                    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                        <a class="btn btn-outline-success btn-lg" href="{{ path('app_classe_new') }}">Nouvelle Classe</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -76,24 +81,26 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <a class="btn btn-outline-primary" href="{{ path('app_classe_new') }}">Nouvelle Classe</a>
                 </div>
 
                 <div id="instance">
                 <h1>Liste des Instances</h1>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                    <a class="btn btn-outline-success btn-lg" href="{{ path('app_instances_new') }}">Nouvelle Instance</a>
+                </div>
                     {% for instance in instances %}
                         <h2>{{instance.nameInstance}}</h2>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Boss Dispnible</th>
-                                    <th>Image du Boss</th>
+                                    <th class="maxWidth">Boss Dispnible</th>
+                                    <th class="priority-3">Image du Boss</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for boss in instance.bosses %}
                                 <tr>
-                                    <td>{{ boss.nameBoss }}</td>
+                                    <td class="maxWidth">{{ boss.nameBoss }}</td>
                                     <td class="priority-3"><img src="{{ asset('upload/boss/' ~ boss.imgBoss) }}" width="100"></td>
                                 </tr>
                             {% endfor %}
@@ -104,11 +111,13 @@
                                 <h1>no records found</h1>
                                 
                     {% endfor %}
-                    <a class="btn btn-outline-primary" href="{{ path('app_instances_new') }}">Nouvelle Instance</a>
                 </div>
 
                 <div id="race">
                     <h1>Race index</h1>
+                    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                        <a class="btn btn-outline-success btn-lg" href="{{ path('app_race_new') }}">Nouvelle Race</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -134,11 +143,13 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <a  class="btn btn-outline-primary" href="{{ path('app_race_new') }}">Nouvelle Race</a>
                 </div>
 
                 <div id="specialisation">
                     <h1>Specialisation index</h1>
+                    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                        <a class="btn btn-outline-success btn-lg" href="{{ path('app_specialisation_new') }}">Nouvelle Spécialisation</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -164,7 +175,6 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <a class="btn btn-outline-primary" href="{{ path('app_specialisation_new') }}">Nouvelle Spécialisation</a>
                 </div>
                 <div id="character">
                     <h1 class="text-center">Character</h1>

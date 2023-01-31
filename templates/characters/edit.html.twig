@@ -3,6 +3,7 @@
 {% block title %}Edit Characters{% endblock %}
 
 {% block body %}
+{% if app.user.id == character.user.id %}
     <h1>Edit Characters</h1>
 
     {{ include('characters/_form.html.twig', {'button_label': 'Update'}) }}
@@ -10,6 +11,12 @@
     <a href="{{ path('app_characters_index') }}">back to list</a>
 
     {{ include('characters/_delete_form.html.twig') }}
+{% else %}
+    <h1>Il semblerait que tu te soit perdu</h1>
+    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+        <a class="btn btn-outline-success btn-lg" href="{{ path('main') }}">retour a l'acceuil</a>
+    </div>
+{% endif %}
     <script>
         $(document).ready(function() {
             $('#characters_race').change(function() {
