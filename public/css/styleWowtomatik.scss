@@ -101,11 +101,31 @@ footer {
     color: white;
 }
 
+.dashbord-btn {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    position: sticky;
+}
 
+@media screen and (max-width: 1450px) {
+    .dashbord-btn {
+        display: flex;
+        flex-direction: row;
+
+        .btn {
+            margin: 5px;
+            width: 130px;
+        }
+
+        flex-wrap: wrap;
+    }
+}
 
 @media screen and (max-width: 1225px) and (min-width: 1045px) {
     .priority-5 {
         display: none;
+        width: auto;
     }
 }
 

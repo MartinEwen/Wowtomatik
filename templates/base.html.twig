@@ -21,19 +21,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item">
-            <a class="nav-link" href="/race">Race</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/classe">Classe</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/instances">Instance</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/specialisation">Spécialisation</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/boss">Boss</a>
+            <a class="nav-link" href="/admin">Dashbord Admin</a>
           </li>
           {% endif %}
           {% if app.user %}

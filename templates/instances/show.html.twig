@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_instances_index') }}">back to list</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_admin') }}">back to list</a>
 
-    <a href="{{ path('app_instances_edit', {'id': instance.id}) }}">edit</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_instances_edit', {'id': instance.id}) }}">edit</a>
 
     {{ include('instances/_delete_form.html.twig') }}
 {% endblock %}

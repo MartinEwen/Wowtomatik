@@ -36,6 +36,7 @@ security:
         - { path: ^/classe, roles: ROLE_ADMIN }
         - { path: ^/instances, roles: ROLE_ADMIN }
         - { path: ^/specialisation, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/boss, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/guilds, roles: ROLE_USER }

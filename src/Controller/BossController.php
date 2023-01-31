@@ -9,6 +9,7 @@ use App\Repository\InstancesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/boss')]
@@ -24,16 +25,27 @@ class BossController extends AbstractController
     }
 
     #[Route('/new', name: 'app_boss_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, BossRepository $bossRepository): Response
+    public function new(Request $request, BossRepository $bossRepository, SluggerInterface $slugger): Response
     {
         $boss = new Boss();
         $form = $this->createForm(BossType::class, $boss);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $bossRepository->save($boss, true);
+            $imageFile = $form->get('imgBoss')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('images_boss'),
+                    $newFilename
+                );
+                $boss->setImgBoss($newFilename);
+                $bossRepository->save($boss, true);
 
-            return $this->redirectToRoute('app_boss_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('boss/new.html.twig', [
@@ -51,15 +63,27 @@ class BossController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_boss_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Boss $boss, BossRepository $bossRepository): Response
+    public function edit(Request $request, Boss $boss, BossRepository $bossRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(BossType::class, $boss);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bossRepository->save($boss, true);
+            $imageFile = $form->get('imgBoss')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('images_boss'),
+                    $newFilename
+                );
+                $boss->setImgBoss($newFilename);
+                $bossRepository->save($boss, true);
 
-            return $this->redirectToRoute('app_boss_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('boss/edit.html.twig', [
@@ -75,6 +99,6 @@ class BossController extends AbstractController
             $bossRepository->remove($boss, true);
         }
 
-        return $this->redirectToRoute('app_boss_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -43,7 +43,7 @@ class SpecialisationController extends AbstractController
                 $specialisation->setPicture($newFilename);
                 $specialisationRepository->save($specialisation, true);
 
-                return $this->redirectToRoute('app_specialisation_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
             }
         }
 
@@ -70,7 +70,7 @@ class SpecialisationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $specialisationRepository->save($specialisation, true);
 
-            return $this->redirectToRoute('app_specialisation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('specialisation/edit.html.twig', [
@@ -86,6 +86,6 @@ class SpecialisationController extends AbstractController
             $specialisationRepository->remove($specialisation, true);
         }
 
-        return $this->redirectToRoute('app_specialisation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }

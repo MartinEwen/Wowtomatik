@@ -23,10 +23,11 @@ class BossType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
+                        'maxSize' => '5000k',
                         'mimeTypes' => [
-                            'upload/boss/*',
+                            'image/*',
                         ],
-                        'mimeTypesMessage' => 'Veuillez entrer un format de document valide',
+                        'mimeTypesMessage' => 'Image trop lourde',
                     ])
                 ],
             ])

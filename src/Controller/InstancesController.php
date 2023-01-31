@@ -31,7 +31,7 @@ class InstancesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $instancesRepository->save($instance, true);
 
-            return $this->redirectToRoute('app_instances_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('instances/new.html.twig', [
@@ -57,7 +57,7 @@ class InstancesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $instancesRepository->save($instance, true);
 
-            return $this->redirectToRoute('app_instances_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('instances/edit.html.twig', [
@@ -69,10 +69,10 @@ class InstancesController extends AbstractController
     #[Route('/{id}', name: 'app_instances_delete', methods: ['POST'])]
     public function delete(Request $request, Instances $instance, InstancesRepository $instancesRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$instance->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $instance->getId(), $request->request->get('_token'))) {
             $instancesRepository->remove($instance, true);
         }
 
-        return $this->redirectToRoute('app_instances_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }

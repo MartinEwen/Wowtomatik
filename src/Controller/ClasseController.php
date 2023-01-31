@@ -43,7 +43,7 @@ class ClasseController extends AbstractController
                 $classe->setPicture($newFilename);
                 $classeRepository->save($classe, true);
 
-                return $this->redirectToRoute('app_classe_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
             }
         }
 

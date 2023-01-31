@@ -43,7 +43,7 @@ class RaceController extends AbstractController
                 $race->setPicture($newFilename);
                 $raceRepository->save($race, true);
 
-                return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
             }
         }
 
@@ -70,7 +70,7 @@ class RaceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $raceRepository->save($race, true);
 
-            return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('race/edit.html.twig', [
@@ -86,6 +86,6 @@ class RaceController extends AbstractController
             $raceRepository->remove($race, true);
         }
 
-        return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }
