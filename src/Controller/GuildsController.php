@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Guilds;
 use App\Form\GuildsType;
+use App\Repository\KillRepository;
 use App\Repository\GuildsRepository;
 use App\Repository\ApplicantRepository;
 use App\Repository\CharactersRepository;
@@ -18,7 +19,7 @@ class GuildsController extends AbstractController
 {
 
     #[Route('/{character}', name: 'app_guilds_index', methods: ['GET', 'POST'])]
-    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character, ApplicantRepository $applicantRepository): Response
+    public function index(GuildsRepository $guildsRepository, CharactersRepository $characterRepository, $character, ApplicantRepository $applicantRepository, KillRepository $killRepository): Response
     {
         $character = $characterRepository->find($character);
         $storedValue  = $character->getId();
@@ -31,6 +32,7 @@ class GuildsController extends AbstractController
             'guilds' => $guildsRepository->findAll(),
             'characters' => $characterRepository->findAll(),
             'applicants' => $applicantRepository->findAll(),
+            'kills' => $killRepository->findAll(),
             'storedValue' => $storedValue,
             'guilds' => $guilds,
             'charactersCount' => $charactersCount
@@ -77,7 +79,7 @@ class GuildsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $guildsRepository->save($guild, true);
 
-            return $this->redirectToRoute('app_guilds_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('guilds/edit.html.twig', [

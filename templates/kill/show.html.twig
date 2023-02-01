@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kill{% endblock %}
+
+{% block body %}
+    <h1>Kill</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ kill.id }}</td>
+            </tr>
+            <tr>
+                <th>Alive</th>
+                <td>{{ kill.alive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ kill.picture }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ kill.date ? kill.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_kill_index') }}">back to list</a>
+
+    <a href="{{ path('app_kill_edit', {'id': kill.id}) }}">edit</a>
+
+    {{ include('kill/_delete_form.html.twig') }}
+{% endblock %}

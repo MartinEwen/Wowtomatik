@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Kill{% endblock %}
+
+{% block body %}
+    <h1>Create new Kill</h1>
+
+    {{ include('kill/_form.html.twig') }}
+
+    <a href="{{ path('app_kill_index') }}">back to list</a>
+{% endblock %}

@@ -28,11 +28,15 @@ class Guilds
     #[ORM\OneToMany(mappedBy: 'guild', targetEntity: Applicant::class)]
     private Collection $applicant;
 
+    #[ORM\OneToMany(mappedBy: 'guild', targetEntity: Kill::class)]
+    private Collection $boss;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->applicant = new ArrayCollection();
+        $this->boss = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +115,36 @@ class Guilds
             // set the owning side to null (unless already changed)
             if ($applicant->getGuild() === $this) {
                 $applicant->setGuild(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kill>
+     */
+    public function getBoss(): Collection
+    {
+        return $this->boss;
+    }
+
+    public function addBoss(Kill $boss): self
+    {
+        if (!$this->boss->contains($boss)) {
+            $this->boss->add($boss);
+            $boss->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoss(Kill $boss): self
+    {
+        if ($this->boss->removeElement($boss)) {
+            // set the owning side to null (unless already changed)
+            if ($boss->getGuild() === $this) {
+                $boss->setGuild(null);
             }
         }
 

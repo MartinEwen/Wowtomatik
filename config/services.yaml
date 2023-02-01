@@ -8,6 +8,7 @@ parameters:
     images_classe: '%kernel.project_dir%/public/upload/classe'
     images_specialisation: '%kernel.project_dir%/public/upload/specialisation'
     images_boss: '%kernel.project_dir%/public/upload/boss'
+    images_kill: '%kernel.project_dir%/public/upload/kill'
 
 services:
    

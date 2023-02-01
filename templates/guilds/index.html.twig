@@ -79,93 +79,143 @@
                         {% set filteredCharacters = characters|filter(character => character.guilds == selectedCharacter.guilds) %}
                         <h1>Guilde {{ character.guilds.nameguild }} </h1>
                         <h3>Personnage selectionné: {{ character.nameCharacter }}</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Member</th>
-                                    <th>role</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for character in filteredCharacters %}
-                                <tr>
-                                    <td>{{ character.nameCharacter }}</td>
-                                    {% if character.roleGuild == "ROLE_MEMBER" %}
-                                        <td>Membre</td>
-                                    {% elseif character.roleGuild == "ROLE_OFFICER" %}
-                                        <td>Officier</td>
-                                    {% elseif character.roleGuild == "ROLE_GUILDMASTER" %}
-                                        <td>Maitre de Guilde</td>
-                                    {% endif %}
-                                    <td>
-                                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
-                                            <a class="btn btn-outline-success" href="#">Edition du rôle</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">Suppression</a>
-                                        {% elseif character == selectedCharacter and selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
-                                            <a class="btn btn-outline-success" href="#">Edition du rôle</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
-                                        {% elseif character == selectedCharacter %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
-                                            <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
-                                        {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
-                                            {% if character.roleGuild != "ROLE_GUILDMASTER" %}
-                                                <a class="btn btn-outline-success" href="#">Edition du rôle</a>
-                                            {% endif %}
-                                        {% else %}
-                                            <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" or selectedCharacter.roleGuild == "ROLE_OFFICER" %}
-                        <h3>Candidats</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Candidat</th>
-                                    <th>Race</th>
-                                    <th>Niveau</th>
-                                    {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                        <div class="superBox">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>role</th>
                                         <th></th>
-                                    {% endif %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for applicant in applicants  %}
-                                    {% if applicant.guild.id == selectedCharacter.guilds.id and applicant.accept == true %}
-                                        <tr>
-                                            <td>{{ applicant.characters.nameCharacter }}</td>
-                                            <td>{{ applicant.characters.race.name }}</td>
-                                            <td>{{ applicant.characters.lvlCharacter }}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for character in filteredCharacters %}
+                                    <tr>
+                                        <td>{{ character.nameCharacter }}</td>
+                                        {% if character.roleGuild == "ROLE_MEMBER" %}
+                                            <td>Membre</td>
+                                        {% elseif character.roleGuild == "ROLE_OFFICER" %}
+                                            <td>Officier</td>
+                                        {% elseif character.roleGuild == "ROLE_GUILDMASTER" %}
+                                            <td>Maitre de Guilde</td>
+                                        {% endif %}
+                                        <td>
                                             {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                                                <td>
-                                                    <a href="/guilds/add/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-success">Accepter</a>
-                                                    <a href="/guilds/no/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-danger">Refuser</a>
-                                                </td>
+                                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                                <a class="btn btn-outline-success" href="#">Edition du rôle</a>
+                                                <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">Suppression</a>
+                                            {% elseif character == selectedCharacter and selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                                <a class="btn btn-outline-success" href="#">Edition du rôle</a>
+                                                <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
+                                            {% elseif character == selectedCharacter %}
+                                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                                <a class="btn btn-outline-danger" href="/guilds/delete/character/{{character.id}}">/Gquit</a>
+                                            {% elseif selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
+                                                {% if character.roleGuild != "ROLE_GUILDMASTER" %}
+                                                    <a class="btn btn-outline-success" href="#">Edition du rôle</a>
+                                                {% endif %}
+                                            {% else %}
+                                                <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Fiche perso</a>
                                             {% endif %}
-                                        </tr>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" or selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                        <div class="superBox">
+                            <h3>Candidats</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Candidat</th>
+                                        <th>Race</th>
+                                        <th>Niveau</th>
+                                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                            <th></th>
+                                        {% endif %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for applicant in applicants  %}
+                                        {% if applicant.guild.id == selectedCharacter.guilds.id and applicant.accept == true %}
+                                            <tr>
+                                                <td>{{ applicant.characters.nameCharacter }}</td>
+                                                <td>{{ applicant.characters.race.name }}</td>
+                                                <td>{{ applicant.characters.lvlCharacter }}</td>
+                                                {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                                    <td>
+                                                        <a href="/guilds/add/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-success">Accepter</a>
+                                                        <a href="/guilds/no/{{character.guilds.id}}/{{applicant.characters.id}}" class="btn btn-danger">Refuser</a>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% else %}
+                                        <td colspan="4">Aucune candidature en attente</td>
+                                        {% endif %}
                                     {% else %}
                                     <td colspan="4">Aucune candidature en attente</td>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                        <div class="superBox">
+                            <h1>Boss head</h1>
+                            {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" or selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                                    <a href="/kill/new/{{character.guilds.id}}" class="btn btn-success">Actualiser l'avancée PVE de {{character.guilds.nameGuild}}</a>
+                                </div>
+                            {% endif %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>état</th>
+                                        <th> instance et boss</th>
+                                        <th>Image du Down</th>
+                                        <th>Date de validation</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for kill in kills %}
+                                    {% if kill.guild.id == selectedCharacter.guilds.id %}
+                                        <tr>
+                                            <td>{{ kill.alive ? 'Yes' : 'Dead' }}</td>
+                                            <td>{{ kill.boss.instance.nameInstance }}
+                                                <br>
+                                                {{ kill.boss.nameBoss }}
+                                            </td>
+                                            <td class="priority-3"><img src="{{ asset('upload/kill/' ~ kill.picture) }}" width="100"></td>
+                                            <td>{{ kill.createdAt ? kill.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                            <td>
+                                                <a href="{{ path('app_kill_show', {'id': kill.id}) }}" class="btn btn-success">show</a>
+                                                {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" or selectedCharacter.roleGuild == "ROLE_OFFICER" %}
+                                                    <a href="{{ path('app_kill_edit', {'id': kill.id}) }}" class="btn btn-success">edit</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
                                     {% endif %}
                                 {% else %}
-                                <td colspan="4">Aucune candidature en attente</td>
+                                    <tr>
+                                        <td colspan="5">no records found</td>
+                                    </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
-                        {% endif %}
-                        {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
-                            {% for guild in guilds %}
-                                {% if guild.id == selectedCharacter.guilds.id %}
-                                    {{ include('guilds/_delete_form.html.twig') }}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="superBox">
+                            {% if selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                {% for guild in guilds %}
+                                    {% if guild.id == selectedCharacter.guilds.id %}
+                                        {{ include('guilds/_delete_form.html.twig') }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                     {% endif %}
                 {% endif %}
             {% endfor %}

@@ -89,27 +89,31 @@
                     <a class="btn btn-outline-success btn-lg" href="{{ path('app_instances_new') }}">Nouvelle Instance</a>
                 </div>
                     {% for instance in instances %}
-                        <h2>{{instance.nameInstance}}</h2>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="maxWidth">Boss Dispnible</th>
-                                    <th class="priority-3">Image du Boss</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for boss in instance.bosses %}
-                                <tr>
-                                    <td class="maxWidth">{{ boss.nameBoss }}</td>
-                                    <td class="priority-3"><img src="{{ asset('upload/boss/' ~ boss.imgBoss) }}" width="100"></td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>  
-                            {% else %}
-
-                                <h1>no records found</h1>
-                                
+                        <div class="superBox">
+                            <h2>{{instance.nameInstance}}</h2>
+                            <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+                                <a class="btn btn-outline-primary" href="{{ path('app_instances_show', {'id': instance.id}) }}">show</a>
+                                <a class="btn btn-outline-info" href="{{ path('app_instances_edit', {'id': instance.id}) }}">edit</a>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="maxWidth">Boss Dispnible</th>
+                                        <th class="priority-3">Image du Boss</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for boss in instance.bosses %}
+                                    <tr>
+                                        <td class="maxWidth">{{ boss.nameBoss }}</td>
+                                        <td class="priority-3"><img src="{{ asset('upload/boss/' ~ boss.imgBoss) }}" width="100"></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table> 
+                        </div> 
+                    {% else %}
+                        <h1>no records found</h1>
                     {% endfor %}
                 </div>
 

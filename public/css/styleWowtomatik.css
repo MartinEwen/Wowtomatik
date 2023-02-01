@@ -112,6 +112,11 @@ footer {
   width: 125px;
 }
 
+.superBox {
+  margin: 5%;
+  padding: 2%;
+}
+
 @media screen and (max-width: 1225px) and (min-width: 1045px) {
   .priority-5 {
     display: none;

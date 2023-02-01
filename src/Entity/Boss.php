@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\Instances;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BossRepository;
 
@@ -23,6 +25,13 @@ class Boss
     #[ORM\ManyToOne(inversedBy: 'bosses')]
     private ?Instances $instance = null;
 
+    #[ORM\OneToMany(mappedBy: 'boss', targetEntity: Kill::class)]
+    private Collection $kills;
+
+    public function __construct()
+    {
+        $this->kills = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +70,36 @@ class Boss
     public function setInstance(?Instances $instance): self
     {
         $this->instance = $instance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kill>
+     */
+    public function getKills(): Collection
+    {
+        return $this->kills;
+    }
+
+    public function addKill(Kill $kill): self
+    {
+        if (!$this->kills->contains($kill)) {
+            $this->kills->add($kill);
+            $kill->setBoss($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKill(Kill $kill): self
+    {
+        if ($this->kills->removeElement($kill)) {
+            // set the owning side to null (unless already changed)
+            if ($kill->getBoss() === $this) {
+                $kill->setBoss(null);
+            }
+        }
 
         return $this;
     }
