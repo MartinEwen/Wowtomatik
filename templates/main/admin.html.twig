@@ -3,7 +3,9 @@
 {% block title %}Wowtomatik / admin{% endblock %}
 
 {% block body %}
-<h1>Dashbord Admin</h1>
+<div class="superBox">
+    <h1>Dashbord Admin</h1>
+</div>
     <div class="container">
         <div class="row">
             <div class="col-xxl-2 dashboard">
@@ -17,7 +19,7 @@
             </div>
 
             <div class="col-xxl-10 ">
-                <div id="boss">
+                <div id="boss" class="superBox">
                     <h1>Boss index</h1>
                     <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                         <a class="btn btn-outline-success btn-lg" href="{{ path('app_boss_new') }}">Nouveau Boss</a>
@@ -51,7 +53,7 @@
                     </table>
                 </div>
 
-                <div id="classe">
+                <div id="classe" class="superBox">
                     <h1>Liste des Classe</h1>
                     <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                         <a class="btn btn-outline-success btn-lg" href="{{ path('app_classe_new') }}">Nouvelle Classe</a>
@@ -83,7 +85,7 @@
                     </table>
                 </div>
 
-                <div id="instance">
+                <div id="instance" class="superBox">
                 <h1>Liste des Instances</h1>
                 <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                     <a class="btn btn-outline-success btn-lg" href="{{ path('app_instances_new') }}">Nouvelle Instance</a>
@@ -117,7 +119,7 @@
                     {% endfor %}
                 </div>
 
-                <div id="race">
+                <div id="race" class="superBox">
                     <h1>Race index</h1>
                     <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                         <a class="btn btn-outline-success btn-lg" href="{{ path('app_race_new') }}">Nouvelle Race</a>
@@ -149,7 +151,7 @@
                     </table>
                 </div>
 
-                <div id="specialisation">
+                <div id="specialisation" class="superBox">
                     <h1>Specialisation index</h1>
                     <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
                         <a class="btn btn-outline-success btn-lg" href="{{ path('app_specialisation_new') }}">Nouvelle Spécialisation</a>
@@ -157,14 +159,16 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Classe</th>
                                 <th>Name</th>
                                 <th>Picture</th>
-                                <th>actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for specialisation in specialisations %}
                             <tr>
+                                <td>{{ specialisation.classe.name }}</td>
                                 <td>{{ specialisation.name }}</td>
                                 <td><img src="{{ asset('upload/specialisation/' ~ specialisation.picture) }}" width="50"></td>
                                 <td>
@@ -180,7 +184,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="character">
+                <div id="character" class="superBox">
                     <h1 class="text-center">Character</h1>
                     <table class="table">
                         <thead>
@@ -208,7 +212,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="guild">
+                <div id="guild" class="superBox">
                     <h1>Liste des Guildes</h1>
                     <table class="table">
                         <thead>

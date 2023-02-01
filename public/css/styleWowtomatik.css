@@ -1,5 +1,4 @@
 body {
-  margin-top: 7%;
   background-image: url(../upload/background-images/wow.jpg);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%), url(../upload/background-images/wow.jpg);
   background-repeat: no-repeat;
@@ -9,17 +8,22 @@ body {
 body .centre-site {
   color: white;
   background-color: rgba(60, 60, 60, 0.5647058824);
-  padding: 3%;
+  padding: 2%;
   border: 1px solid black;
   border-radius: 10px;
-  margin-bottom: 7%;
+  margin: 7% 0;
+}
+@media screen and (max-width: 850px) {
+  body .centre-site {
+    margin: 65px 0;
+  }
 }
 
 h1,
 h2,
 h3 {
   color: white;
-  text-shadow: 2px 2px rgb(33, 112, 177);
+  text-shadow: 3px 3px rgb(0, 0, 0);
   text-align: center;
   margin-bottom: 3%;
 }
