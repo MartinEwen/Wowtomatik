@@ -9,9 +9,9 @@
                         {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
                                 {% if selectedCharacter.roleGuild == "ROLE_OFFICER" or selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
                                         {{ include('kill/_form.html.twig', {'button_label': 'Update'}) }}
-
-                                        <a class="btn " href="/">Retour à l'acceuil</a>
-
+                                                <div class="d-flex justify-content-center">
+                                                        <a class="btn " href="/">Retour à l'acceuil</a>
+                                                </div>
                                         {{ include('kill/_delete_form.html.twig') }}
                                 {% endif %}
                         {% endif %}

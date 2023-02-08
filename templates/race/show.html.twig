@@ -21,10 +21,10 @@
             </tr>
         </tbody>
     </table>
-
-    <a class="btn btn-outline-primary" href="{{ path('app_admin') }}">back to list</a>
-
-    <a class="btn btn-outline-primary" href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-outline-primary" href="{{ path('app_admin') }}">back to list</a>
+        <a class="btn btn-outline-primary" href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
+    </div>
 
     {{ include('race/_delete_form.html.twig') }}
 {% endblock %}

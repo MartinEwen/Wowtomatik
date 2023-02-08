@@ -6,6 +6,7 @@
     <h1>Create new Specialisation</h1>
 
     {{ include('specialisation/_form.html.twig') }}
-
-    <a href="{{ path('app_specialisation_index') }}">back to list</a>
+    <div class="d-flex justify-content-center">
+        <a href="{{ path('app_specialisation_index') }}">back to list</a>
+    </div>
 {% endblock %}

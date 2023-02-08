@@ -6,6 +6,7 @@
     <h1>Create new Instances</h1>
 
     {{ include('instances/_form.html.twig') }}
-
-    <a class="btn btn-outline-primary" href="{{ path('app_admin') }}">back to list</a>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-outline-primary" href="{{ path('app_admin') }}">back to list</a>
+    </div>
 {% endblock %}

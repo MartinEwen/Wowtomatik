@@ -6,8 +6,10 @@
     <h1>Create new Characters</h1>
 
     {{ include('characters/_form.html.twig') }}
-
-    <a href="{{ path('app_characters_index') }}">back to list</a>
+    <div class="d-flex justify-content-center">
+        <a href="{{ path('app_characters_index') }}">back to list</a>
+    </div>
+    
      
     <script>
         $(document).ready(function() {
