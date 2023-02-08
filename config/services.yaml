@@ -11,7 +11,10 @@ parameters:
     images_kill: '%kernel.project_dir%/public/upload/kill'
 
 services:
-   
+    App\Exception\RouteNotFoundController:
+        tags:
+            - { name: controller.exception, exception: NotFoundHttpException }
+    
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -28,3 +31,4 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+# config/services.yaml

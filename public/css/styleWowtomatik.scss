@@ -21,6 +21,9 @@ body {
     }
 }
 
+#mySelect {
+    width: 200px;
+}
 
 h1,
 h2,
@@ -126,8 +129,45 @@ footer {
 }
 
 .superBox {
-    margin: 5%;
+    margin: 2%;
     padding: 2%;
+}
+
+.card {
+    background-color: #9A8C9876;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 3% 1%;
+    margin: 2% 0;
+    text-align: center;
+    box-shadow: 2px 2px black;
+
+    img {
+        min-width: 200px;
+        max-width: 75%;
+        height: 200px;
+        border: 1px solid black;
+        box-shadow: 2px 2px black;
+    }
+
+    @media screen and (max-width: 1150px) {
+        background-color: #9A8C9876;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3% 1%;
+        margin: 2% 0;
+        text-align: center;
+
+        img {
+            min-width: 150px;
+            max-width: 50%;
+            height: 150px;
+            border: 1px solid black;
+            box-shadow: 2px 2px black;
+        }
+    }
 }
 
 @media screen and (max-width: 1225px) and (min-width: 1045px) {

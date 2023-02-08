@@ -8,12 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>LvlCharacter</th>
+                <th>Niveaux</th>
                 <td>{{ character.lvlCharacter }}</td>
                 <td></td>
             </tr>
             <tr>
-                <th>race</th>
+                <th>Race</th>
                 <td>{{ character.race.name }}</td>
                 <td><img src="{{ asset('upload/race/' ~ character.race.picture) }}" width="100"></td>
             </tr>
@@ -22,25 +22,10 @@
                 <td>{{ character.classe.name }}</td>
                 <td><img src="{{ asset('upload/classe/' ~ character.classe.picture) }}" width="100"></td>
             </tr>
-            {# <tr>
-                <th>GearScoreSpe1</th>
-                <td>{{ character.gearScoreSpe1 }}</td>
-            </tr>
-            <tr>
-                <th>GearScoreSpe2</th>
-                <td>{{ character.gearScoreSpe2 }}</td>
-            </tr> #}
-            <tr>
-                <th>RoleGuild</th>
-                <td>{{ character.roleGuild }}</td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_characters_index') }}">back to list</a>
+    <a href="/" class="btn">Retour à l'acceuil</a>
+    <a class="btn" onclick="window.history.back()">Revenir à la page précédente</a>
 
-    <a href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
-
-    {{ include('characters/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,11 +3,19 @@
 {% block title %}Edit Applicant{% endblock %}
 
 {% block body %}
-    <h1>Edit Applicant</h1>
+    {% if is_granted("ROLE_ADMIN") %}
+        <h1>Edit Applicant</h1>
 
-    {{ include('applicant/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('applicant/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_applicant_index') }}">back to list</a>
+        <a href="{{ path('app_applicant_index') }}">retour à l'acceuil</a>
 
-    {{ include('applicant/_delete_form.html.twig') }}
+        {{ include('applicant/_delete_form.html.twig') }}
+    {% else %}
+        <script>
+            setTimeout(function () {
+                window.location.href = "{{ path('main') }}";
+            });
+        </script>
+    {% endif %}
 {% endblock %}

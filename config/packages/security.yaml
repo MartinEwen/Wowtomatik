@@ -14,6 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            access_denied_handler: App\Security\AccessDeniedHandler
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppAuthenticator
@@ -38,6 +39,7 @@ security:
         - { path: ^/specialisation, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/boss, roles: ROLE_ADMIN }
+        - { path: ^/applicant, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/guilds, roles: ROLE_USER }
         - { path: ^/characters, roles: ROLE_USER }

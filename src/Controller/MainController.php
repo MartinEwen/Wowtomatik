@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BossRepository;
+use App\Repository\KillRepository;
 use App\Repository\RaceRepository;
 use App\Repository\ClasseRepository;
 use App\Repository\GuildsRepository;
@@ -16,10 +17,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'main')]
-    public function index(): Response
+    public function index(KillRepository $killRepository): Response
     {
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'kills' => $killRepository->findAll(),
         ]);
     }
 

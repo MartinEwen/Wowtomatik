@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wowtomatik / Mes personnages{% endblock %}
+{% block title %}Mes personnages{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,7 @@
 
         <h1 class="text-center mt-5">Personnage de {{ app.user.pseudo }}</h1>
         <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
-            <a class="btn btn-outline-success btn-lg" href="{{ path('app_characters_new') }}">Create new</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ path('app_characters_new') }}">Nouveau Personnage</a>
         </div>
         <table class="table">
             <thead>
@@ -19,7 +19,7 @@
                     <th class="priority-3">Niveau</th>
                     <th class="priority-4">Rôle Guilde</th>
                     <th class="priority-4">Guilde</th>
-                    <th class="priority-1">actions</th>
+                    <th class="priority-1"></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,8 +46,8 @@
                         <td class="priority-4">Pas de Guild</td>
                     {% endif %}
                     <td class="priority-1">
-                        <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">show</a>
-                        <a class="btn btn-outline-info" href="{{ path('app_characters_edit', {'id': character.id}) }}">edit</a>
+                        <a class="btn btn-outline-primary" href="{{ path('app_characters_show', {'id': character.id}) }}">Detail</a>
+                        <a class="btn btn-outline-info" href="{{ path('app_characters_edit', {'id': character.id}) }}">Modification</a>
                     </td>
                 </tr>
 

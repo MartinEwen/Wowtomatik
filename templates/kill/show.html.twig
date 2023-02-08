@@ -17,18 +17,14 @@
             </tr>
             <tr>
                 <th>Picture</th>
-                <td>{{ kill.picture }}</td>
+                <td class="priority-3"><img src="{{ asset('upload/kill/' ~ kill.picture) }}" width="100"></td>
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ kill.date ? kill.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ kill.createdAt ? kill.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_kill_index') }}">back to list</a>
-
-    <a href="{{ path('app_kill_edit', {'id': kill.id}) }}">edit</a>
-
-    {{ include('kill/_delete_form.html.twig') }}
+    <a href="/" class="btn">Retour à l'acceuil</a>
 {% endblock %}

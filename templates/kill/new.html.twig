@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Kill{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Create new Kill</h1>
-
-    {{ include('kill/_form.html.twig') }}
-
-    <a href="{{ path('app_kill_index') }}">back to list</a>
+     {% if storedValue is not null %}
+                {% for character in characters %}
+                        {% if character.id == storedValue %}
+                        {% set selectedCharacter = characters|filter(character => character.id == storedValue)|first %}
+                                {% if selectedCharacter.roleGuild == "ROLE_OFFICER" or selectedCharacter.roleGuild == "ROLE_GUILDMASTER" %}
+                                    <h1>Un nouveau Boss est tombé?</h1>
+                                    {{ include('kill/_form.html.twig') }}
+                                    <div class="d-flex justify-content-center">
+                                        <a class="btn" href="{{ path('main') }}">Retour à l'acceuil</a>
+                                    </div>
+                                {% endif %}
+                        {% endif %}
+                {% endfor %}
+        {% endif %}
 {% endblock %}

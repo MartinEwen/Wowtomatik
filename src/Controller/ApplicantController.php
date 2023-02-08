@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/applicant')]
 class ApplicantController extends AbstractController
 {
-    #[Route('/', name: 'app_applicant_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_applicant_index', methods: ['GET'])]
     public function index(ApplicantRepository $applicantRepository, CharactersRepository $characterRepository, GuildsRepository $guildsRepository): Response
     {
         return $this->render('applicant/index.html.twig', [
@@ -48,11 +48,12 @@ class ApplicantController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_applicant_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Applicant $applicant, ApplicantRepository $applicantRepository): Response
+    #[Route('/{id}/{character}/edit', name: 'app_applicant_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Applicant $applicant, CharactersRepository $characterRepository, ApplicantRepository $applicantRepository, $character): Response
     {
         $form = $this->createForm(ApplicantType::class, $applicant);
         $form->handleRequest($request);
+        $character = $characterRepository->find($character)->getId();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $applicantRepository->save($applicant, true);
@@ -61,8 +62,11 @@ class ApplicantController extends AbstractController
         }
 
         return $this->renderForm('applicant/edit.html.twig', [
+            'applicants' => $applicantRepository->findAll(),
+            'characters' => $characterRepository->findAll(),
             'applicant' => $applicant,
             'form' => $form,
+            'storedValue' => $character,
         ]);
     }
 
