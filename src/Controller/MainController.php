@@ -24,6 +24,24 @@ class MainController extends AbstractController
         ]);
     }
 
+    #[Route('/confidentialite', name: 'confidentialite')]
+    public function confidentialite(): Response
+    {
+        return $this->render('main/confidentialite.html.twig');
+    }
+
+    #[Route('/copyright', name: 'copyright')]
+    public function copyright(): Response
+    {
+        return $this->render('main/copyright.html.twig');
+    }
+
+    #[Route('/FAQ', name: 'FAQ')]
+    public function FAQ(): Response
+    {
+        return $this->render('main/faq.html.twig');
+    }
+
     #[Route('/admin', name: 'app_admin', methods: ['GET'])]
     public function admin(InstancesRepository $instancesRepository, RaceRepository $raceRepository, SpecialisationRepository $specialisationRepository, ClasseRepository $classeRepository, GuildsRepository $guildsRepository, BossRepository $bossRepository, CharactersRepository $charactersRepository): Response
     {
