@@ -4,7 +4,10 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    height: 100%;
+
+    .full {
+        min-height: 100vh;
+    }
 
     .centre-site {
         color: white;
@@ -13,7 +16,6 @@ body {
         border: 1px solid black;
         border-radius: 10px;
         margin: 7% 0;
-        min-height: 100%;
     }
 
     @media screen and (max-width: 850px) {
