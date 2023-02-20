@@ -1,6 +1,5 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    error_controller: App\Exception\RouteNotFoundController::__invoke
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false

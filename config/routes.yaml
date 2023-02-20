@@ -1,3 +1,12 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+# Redirection pour les erreurs 404
+not_found:
+    path: /not-found
+    controller: App\Controller\ErrorController::notFound
+
+# Redirection pour les erreurs 500
+server_error:
+    path: /server-error
+    controller: App\Controller\ErrorController::serverError
