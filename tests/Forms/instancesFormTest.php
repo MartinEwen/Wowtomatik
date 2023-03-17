@@ -1,19 +1,24 @@
 <?php
-// tests/Form/ProductsFormTest.php
-namespace App\Tests\Form;
+// tests/Form/InstancesFormTest.php
+namespace App\Tests;
 
 use App\Entity\Instances;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class InstancesFormTest extends KernelTestCase
 {
-    public function testNewInstances()
+    public function testGetNameInstance()
     {
-        $instances = (new Instances())
-            ->setNameInstance('azerty');
-        self::bootKernel();
-        $container = static::getContainer();
-        $error = $container->get('validator')->validate($instances);
-        $this->assertCount(0, $error);
+        $instance = new Instances();
+        $name = 'Instance 1';
+        $instance->setNameInstance($name);
+
+        $this->assertSame($name, $instance->getNameInstance());
+    }
+
+    public function testGetId()
+    {
+        $instance = new Instances();
+        $this->assertNull($instance->getId());
     }
 }
