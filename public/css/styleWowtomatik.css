@@ -114,7 +114,6 @@ footer a {
   display: flex;
   flex-direction: column;
   width: auto;
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -146,8 +145,7 @@ footer a {
   box-shadow: 2px 2px black;
 }
 .card img {
-  min-width: 200px;
-  max-width: 75%;
+  max-width: 200px;
   height: 200px;
   border: 1px solid black;
   box-shadow: 2px 2px black;
@@ -163,8 +161,7 @@ footer a {
     text-align: center;
   }
   .card img {
-    min-width: 150px;
-    max-width: 50%;
+    max-width: 150px;
     height: 150px;
     border: 1px solid black;
     box-shadow: 2px 2px black;

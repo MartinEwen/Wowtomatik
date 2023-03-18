@@ -1,36 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wowtomatik{% endblock %}
+{% block title %}Wowtomatik
+{% endblock %}
 
 {% block body %}
 
-    <strong><h1 class="text-center">WOWTOMATIK</h1></strong>
-    <h2>Hall de la Victoire</h2>
-    <div class="container">
-        <div class="row">
-        {% for kill in kills|slice(-5)|reverse %}
-            <div class="card">
-                <div>
-                    <img src="{{ asset('upload/kill/' ~ kill.picture) }}">
-                </div>
-                <div>
-                    <div class="col-12">
-                        <h3>La Guilde "{{ kill.guild.nameGuild }}" a tué le boss "{{ kill.boss.nameBoss }}" dans l'instance "{{ kill.boss.instance.nameInstance }}" </h3>
-                    </div>
-                    <div class="col-12"> 
-                        <p> {{ kill.createdAt ? kill.createdAt|date('d-m-Y H:i') : '' }} </p> 
-                    </div>
-                </div>
-                <div>
-                    <img src="{{ asset('upload/boss/' ~ kill.boss.imgBoss) }}">
-                </div>
-            </div>
-        {% else %}
-            <tr>
-                <h2>no records found</h2>
-            </tr>
-        {% endfor %}
-        </div>
-    </div>
+	<strong>
+		<h1 class="text-center">WOWTOMATIK</h1>
+	</strong>
+	<h2>Hall de la Victoire</h2>
+	<div class="container">
+		<div class="row">
+			{% for kill in kills|slice(-5)|reverse %}
+				<div class="card">
+					<div>
+						<img src="{{ asset('upload/kill/' ~ kill.picture) }}" onclick="mettreEnPremierPlan(this)">
+					</div>
+					<div>
+						<div class="col-12">
+							<h3>La Guilde "{{ kill.guild.nameGuild }}" a tué le boss "{{ kill.boss.nameBoss }}" dans l'instance "{{ kill.boss.instance.nameInstance }}"
+							</h3>
+						</div>
+						<div class="col-12">
+							<p>
+								{{ kill.createdAt ? kill.createdAt|date('d-m-Y H:i') : '' }}
+							</p>
+						</div>
+					</div>
+					<div>
+						<img src="{{ asset('upload/boss/' ~ kill.boss.imgBoss) }}" onclick="mettreEnPremierPlan(this)">
+					</div>
+				</div>
+			{% else %}
+				<tr>
+					<h2>no records found</h2>
+				</tr>
+			{% endfor %}
+		</div>
+	</div>
+	<script>
+        function mettreEnPremierPlan(image) {
+            image.style.position = "fixed";
+            image.style.top = "50%";
+            image.style.left = "50%";
+            image.style.transform = "translate(-50%, -50%)";
+            image.style.zIndex = "9999";
+            image.onclick = function () {
+                image.style.position = "";
+                image.style.top = "";
+                image.style.left = "";
+                image.style.transform = "";
+                image.style.zIndex = "";
+                image.onclick = function () {
+                    mettreEnPremierPlan(image);
+                };
+            };
+        }
+	</script>
 {% endblock %}
-
