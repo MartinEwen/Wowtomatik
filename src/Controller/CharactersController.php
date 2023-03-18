@@ -93,7 +93,7 @@ class CharactersController extends AbstractController
     #[Route('/{id}/edit', name: 'app_characters_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Characters $character, CharactersRepository $charactersRepository, RaceRepository $raceRepository): Response
     {
-        $form = $this->createForm(CharactersType::class, $character);
+        
         $form = $this->createForm(CharactersType::class, $character, [
             'races' => $this->getRaces(),
             'classes' => $this->getClasses()
